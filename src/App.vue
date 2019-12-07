@@ -1,23 +1,47 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+    <h1>Player Characters</h1>
+    <PlayerCharacterPage v-for="pc in pcs" :pc="pc" :key="pc.firstName" />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import HelloWorld from './components/HelloWorld.vue';
+import BootstrapVue from 'bootstrap-vue';
+import PlayerCharacterPage from './components/PlayerCharacterPage.vue'
+import { PlayerCharacter } from '@/types';
 
 @Component({
   components: {
-    HelloWorld,
+    PlayerCharacterPage,
   },
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  private pcs: PlayerCharacter[] = [
+    {
+      firstName: "Argos",
+      lastName: "Blackrock",
+      currentHitPoints: 15,
+      maxHitPoints: 30,
+      currentAC: 15,
+      baseAC: 15
+    },
+    {
+      firstName: "Billy",
+      lastName: "Black",
+      currentHitPoints: 15,
+      maxHitPoints: 30,
+      currentAC: 15,
+      baseAC: 15
+    }
+  ]
+}
 </script>
 
-<style>
+<style lang="scss">
+// @import '~bootstrap';
+// @import '~bootstrap-vue';
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
