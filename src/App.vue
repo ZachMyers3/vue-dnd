@@ -7,6 +7,7 @@
   <v-app-bar dense app>
     <!-- -->
   </v-app-bar>
+
   <v-content>
     <PlayerCharacterPage v-for="pc in pcs" :pc="pc" :key="pc.firstName" />
   </v-content>
@@ -21,6 +22,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import BootstrapVue from 'bootstrap-vue';
 import PlayerCharacterPage from './components/PlayerCharacterPage.vue'
 import { PlayerCharacter } from '@/types';
+import Character from '@/models/Character';
 
 @Component({
   components: {
