@@ -3,7 +3,7 @@
         <h2>{{ pc.firstName }} {{ pc.lastName }}</h2>
         <p>
             HP: {{ pc.currentHitPoints }} / {{ pc.maxHitPoints }}
-            <button v-on:click="pc.currentHitPoints += 1">+</button><button v-on:click="pc.currentHitPoints -= 1">-</button>
+            <button v-on:click="pc.currentHitPoints += 1">[+]</button><button v-on:click="pc.currentHitPoints -= 1">[-]</button>
         </p>
         <p>AC: {{ pc.currentAC }} ({{ pc.baseAC }})</p>
     </div>

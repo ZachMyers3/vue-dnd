@@ -1,8 +1,19 @@
 <template>
-  <div id="app">
-    <h1>Player Characters</h1>
+<v-app dark>
+  <v-navigation-drawer app>
+    <!-- -->
+  </v-navigation-drawer>
+
+  <v-app-bar dense app>
+    <!-- -->
+  </v-app-bar>
+  <v-content>
     <PlayerCharacterPage v-for="pc in pcs" :pc="pc" :key="pc.firstName" />
-  </div>
+  </v-content>
+
+  <v-footer app>
+  </v-footer>
+</v-app>
 </template>
 
 <script lang="ts">
@@ -35,6 +46,15 @@ export default class App extends Vue {
       baseAC: 15
     }
   ]
+  data() { 
+    return {
+      menuItems: [
+        { title: 'Home', path: '/home', icon: 'home' },
+        { title: 'Sign Up', path: '/signup', icon: 'face' },
+        { title: 'Sign In', path: '/signin', icon: 'lock_open' }
+      ]
+    }
+  }
 }
 </script>
 
