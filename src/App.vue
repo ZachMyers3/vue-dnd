@@ -1,15 +1,15 @@
 <template>
 <v-app dark>
-  <v-navigation-drawer app>
-    <!-- -->
-  </v-navigation-drawer>
+  <!-- <v-navigation-drawer app>
+
+  </v-navigation-drawer> -->
 
   <v-app-bar dense app>
     <!-- -->
   </v-app-bar>
 
   <v-content>
-    <PlayerCharacterPage v-for="pc in pcs" :pc="pc" :key="pc.firstName" />
+    <PlayerCharacterPage v-for="pc in characters" :pc="pc" :key="pc.firstName" />
   </v-content>
 
   <v-footer app>
@@ -21,8 +21,8 @@
 import { Component, Vue } from 'vue-property-decorator';
 import BootstrapVue from 'bootstrap-vue';
 import PlayerCharacterPage from './components/PlayerCharacterPage.vue'
-import { PlayerCharacter } from '@/types';
 import Character from '@/models/Character';
+import { CharacterApi } from '@/api/CharacterApi';
 
 @Component({
   components: {
@@ -30,24 +30,11 @@ import Character from '@/models/Character';
   },
 })
 export default class App extends Vue {
-  private pcs: PlayerCharacter[] = [
-    {
-      firstName: "Argos",
-      lastName: "Blackrock",
-      currentHitPoints: 15,
-      maxHitPoints: 30,
-      currentAC: 15,
-      baseAC: 15
-    },
-    {
-      firstName: "Billy",
-      lastName: "Black",
-      currentHitPoints: 15,
-      maxHitPoints: 30,
-      currentAC: 15,
-      baseAC: 15
+  private characters: Character[] = []
+    async mounted():Promise<void> {
+      console.log('Mounted function!');
+      this.characters = await CharacterApi.getAllUsers();
     }
-  ]
   data() { 
     return {
       menuItems: [
@@ -61,9 +48,6 @@ export default class App extends Vue {
 </script>
 
 <style lang="scss">
-// @import '~bootstrap';
-// @import '~bootstrap-vue';
-
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

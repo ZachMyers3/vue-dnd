@@ -1,19 +1,21 @@
-import Vue from 'vue';
 import Character, { CharacterDTO } from '@/models/Character';
+import axios from 'axios';
 
 interface RequestInterface {
     page: number,
     per_page: number,
     total: number,
     total_pages: number,
-    data: CharacterDTO[]
+    characters: CharacterDTO[]
   }
 
   export abstract class CharacterApi {
-    private static usersAxios = Vue.axios.create();
+    private static charactersAxios = axios.create();
   
     static async getAllUsers(): Promise<Character[]>{
-      let response = await this.usersAxios.get<RequestInterface>('https://reqres.in/api/users');
-      return response.data.data.map(characterDTO => new Character(characterDTO));
+      console.log('Getting all users...');
+      let response = await this.charactersAxios.get<RequestInterface>('https://flask-dnd.herokuapp.com/api/characters');
+      console.log(response);
+      return response.data.characters.map(characterDTO => new Character(characterDTO));
     }
   }
