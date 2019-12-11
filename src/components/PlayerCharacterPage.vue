@@ -1,6 +1,6 @@
 <template>
     <div class="playercharacterpage">
-        <h2>{{ c.fullName }}</h2>
+        <h2>{{ c.fullName }} - Lvl {{ c.level }}</h2>
         <p>
             HP: {{ c.currentHP }} / {{ c.maxHP }}
             <button v-on:click="c.currentHP += 1">[+]</button>
