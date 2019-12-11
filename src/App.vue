@@ -9,7 +9,7 @@
   </v-app-bar>
 
   <v-content>
-    <PlayerCharacterPage v-for="pc in characters" :pc="pc" :key="pc.firstName" />
+    <PlayerCharacterPage v-for="c in characters" :c="c" :key="c.firstName" />
   </v-content>
 
   <v-footer app>
