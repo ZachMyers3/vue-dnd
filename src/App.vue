@@ -20,35 +20,9 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import BootstrapVue from 'bootstrap-vue';
-import PlayerCharacterPage from './components/PlayerCharacterPage.vue'
-import Character from '@/models/Character';
-import { CharacterApi } from '@/api/CharacterApi';
 
-@Component({
-  components: {
-    PlayerCharacterPage,
-  },
-})
-
+@Component({})
 export default class App extends Vue { }
-
-// export default class App extends Vue {
-//   private characters: Character[] = []
-//     async mounted():Promise<void> {
-//       console.log('Mounted function!');
-//       this.characters = await CharacterApi.getAllUsers();
-//     }
-//   data() { 
-//     return {
-//       menuItems: [
-//         { title: 'Home', path: '/home', icon: 'home' },
-//         { title: 'Sign Up', path: '/signup', icon: 'face' },
-//         { title: 'Sign In', path: '/signin', icon: 'lock_open' }
-//       ]
-//     }
-//   }
-// }
 </script>
 
 <style lang="scss">

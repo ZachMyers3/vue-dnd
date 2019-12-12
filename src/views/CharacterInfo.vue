@@ -1,6 +1,6 @@
 <template>
     <div>
-        <CharacterPage v-for="c in characters" :c="c" :key="c._id" />
+        Stub
     </div>
 </template>
 
@@ -17,22 +17,14 @@ import { CharacterApi } from '@/api/CharacterApi';
     CharacterPage,
   },
 })
-export default class Characters extends Vue {
-    // gather characters from API
-    private characters: Character[] = []
-    async mounted():Promise<void> {
-      this.characters = await CharacterApi.getAllCharacters();
+export default class Characters extends Vue { 
+    @Prop() private id!: string;
+
+    mounted() {
+        console.log(this.id);
     }
 }
 </script>
 
 <style lang="scss">
-div.characterpage {
-    h2 {
-		text-decoration: underline;
-	}
-	p.meta {
-		font-style: italic;
-	}
-}
 </style>

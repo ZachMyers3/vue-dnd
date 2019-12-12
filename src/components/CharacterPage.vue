@@ -1,5 +1,5 @@
 <template>
-    <div class="playercharacterpage">
+    <div class="characterpage">
         <h2>{{ c.fullName }} - Lvl {{ c.level }}</h2>
         <p>
             HP: {{ c.currentHP }} / {{ c.maxHP }}
@@ -19,13 +19,13 @@ import { CharacterApi } from '@/api/CharacterApi';
 
 @Component
 export default class CharacterPage extends Vue {
-    // prop declaration, assigns playerCharacter to custom interface Character
+    // prop declaration, assings c to Character class
     @Prop() private c!: Character;
 }
 </script>
 
 <style lang="scss">
-div.playercharacterpage {
+div.characterpage {
     h2 {
 		text-decoration: underline;
 	}

@@ -1,5 +1,6 @@
 import VueRouter from 'vue-router'
 import Characters from '@/views/Characters.vue'
+import CharacterInfo from '@/views/CharacterInfo.vue'
 
 const characterPrefix = 'character/'
 
@@ -15,7 +16,9 @@ const routes = [
     },
     {
         name: 'characterInfo',
-        path: '/' + characterPrefix + ''
+        path: '/' + characterPrefix + ':id',
+        props: true,
+        component: CharacterInfo
     }
 ]
 
