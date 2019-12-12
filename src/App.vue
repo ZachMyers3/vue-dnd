@@ -9,8 +9,8 @@
   </v-app-bar>
 
   <v-content>
-    <PlayerCharacterPage v-for="c in characters" :c="c" :key="c.firstName" />
-    <!-- <router-view></router-view> -->
+    <!-- <PlayerCharacterPage v-for="c in characters" :c="c" :key="c.firstName" /> -->
+    <router-view></router-view>
   </v-content>
 
   <v-footer app>
@@ -31,22 +31,24 @@ import { CharacterApi } from '@/api/CharacterApi';
   },
 })
 
-export default class App extends Vue {
-  private characters: Character[] = []
-    async mounted():Promise<void> {
-      console.log('Mounted function!');
-      this.characters = await CharacterApi.getAllUsers();
-    }
-  data() { 
-    return {
-      menuItems: [
-        { title: 'Home', path: '/home', icon: 'home' },
-        { title: 'Sign Up', path: '/signup', icon: 'face' },
-        { title: 'Sign In', path: '/signin', icon: 'lock_open' }
-      ]
-    }
-  }
-}
+export default class App extends Vue { }
+
+// export default class App extends Vue {
+//   private characters: Character[] = []
+//     async mounted():Promise<void> {
+//       console.log('Mounted function!');
+//       this.characters = await CharacterApi.getAllUsers();
+//     }
+//   data() { 
+//     return {
+//       menuItems: [
+//         { title: 'Home', path: '/home', icon: 'home' },
+//         { title: 'Sign Up', path: '/signup', icon: 'face' },
+//         { title: 'Sign In', path: '/signin', icon: 'lock_open' }
+//       ]
+//     }
+//   }
+// }
 </script>
 
 <style lang="scss">
