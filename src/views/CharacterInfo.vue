@@ -1,7 +1,14 @@
 <template>
-    <div>
-        <CharacterPage v-bind:c="character" />
+    <div v-if="c" class="characterpage">
+        <h2>{{ c.fullName }} - Lvl {{ c.level }}</h2>
+        <p>
+            HP: {{ c.currentHP }} / {{ c.maxHP }}
+            <button v-on:click="c.currentHP += 1">[+]</button>
+            <button v-on:click="c.currentHP -= 1">[-]</button>
+        </p>
+        <p>AC: {{ c.currentAC }} ({{ c.baseAC }})</p>
     </div>
+    <p v-else>Loading...</p>
 </template>
 
 <script lang="ts">
@@ -19,9 +26,15 @@ import { CharacterApi } from '@/api/CharacterApi';
 })
 export default class CharacterInfo extends Vue { 
     @Prop() private id!: string;
-    public character!: Character;
+    private c!: Character;
     async mounted():Promise<void> {
-        this.character = await CharacterApi.getCharacter(this.id);
+        this.c = await CharacterApi.getCharacter(this.id);
+    }
+    // data funciton to pass private c value to template
+    data() {
+      return {
+        c: Character
+      }
     }
 }
 </script>

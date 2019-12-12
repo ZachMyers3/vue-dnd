@@ -1,7 +1,8 @@
 <template>
-    <div>
+    <div v-if=characters>
         <CharacterPage v-for="c in characters" :c="c" :key="c._id" />
     </div>
+    <p v-else>Loading...</p>
 </template>
 
 <script lang="ts">
