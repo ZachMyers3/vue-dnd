@@ -23,8 +23,9 @@ interface characterInterface {
     }
 
     static async getCharacter(id: string): Promise<Character> {
-      const data = {data: {'_id': id}}
-      let response = await this.charactersAxios.get<characterInterface>('https://flask-dnd.herokuapp.com/api/character', data);
-      return new Character(response.data.character)
+      console.log('Getting character ' + id + '...');
+      let response = await this.charactersAxios.get<characterInterface>('https://flask-dnd.herokuapp.com/api/character?_id=' + id);
+      console.log(response);
+      return new Character(response.data.character);
     }
   }

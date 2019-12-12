@@ -1,6 +1,6 @@
 <template>
     <div>
-        Stub
+        <CharacterPage v-bind:c="character" />
     </div>
 </template>
 
@@ -9,7 +9,7 @@ import Vue from 'vue'
 import Component from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 import CharacterPage from '../components/CharacterPage.vue'
-import Character from '@/models/Character';
+import Character, { CharacterDTO } from '@/models/Character';
 import { CharacterApi } from '@/api/CharacterApi';
 
 @Component({
@@ -17,11 +17,11 @@ import { CharacterApi } from '@/api/CharacterApi';
     CharacterPage,
   },
 })
-export default class Characters extends Vue { 
+export default class CharacterInfo extends Vue { 
     @Prop() private id!: string;
-
-    mounted() {
-        console.log(this.id);
+    public character!: Character;
+    async mounted():Promise<void> {
+        this.character = await CharacterApi.getCharacter(this.id);
     }
 }
 </script>
