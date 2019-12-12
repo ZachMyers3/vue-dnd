@@ -10,6 +10,7 @@
 
   <v-content>
     <PlayerCharacterPage v-for="c in characters" :c="c" :key="c.firstName" />
+    <!-- <router-view></router-view> -->
   </v-content>
 
   <v-footer app>
@@ -29,6 +30,7 @@ import { CharacterApi } from '@/api/CharacterApi';
     PlayerCharacterPage,
   },
 })
+
 export default class App extends Vue {
   private characters: Character[] = []
     async mounted():Promise<void> {
