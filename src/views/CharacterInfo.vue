@@ -1,12 +1,17 @@
 <template>
     <div v-if="c" class="characterpage">
-        <h2>{{ c.fullName }} - Lvl {{ c.level }}</h2>
+        <h2 to="/myes">{{ c.fullName }} - Lvl {{ c.level }}</h2>
         <p>
             HP: {{ c.currentHP }} / {{ c.maxHP }}
-            <button v-on:click="c.currentHP += 1">[+]</button>
             <button v-on:click="c.currentHP -= 1">[-]</button>
+            <button v-on:click="c.currentHP += 1">[+]</button>
         </p>
         <p>AC: {{ c.currentAC }} ({{ c.baseAC }})</p>
+        <p>
+          <router-link>
+            RouterLink
+          </router-link>
+        </p>
     </div>
     <p v-else>Loading...</p>
 </template>

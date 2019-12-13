@@ -1,12 +1,13 @@
 <template>
     <div class="characterpage">
-        <h2>{{ c.fullName }} - Lvl {{ c.level }}</h2>
+        <router-link :to="{ name: 'characterInfo', params: { id: c._id }}">
+            <h2>{{ c.fullName }}</h2>
+        </router-link>
         <p>
             HP: {{ c.currentHP }} / {{ c.maxHP }}
             <button v-on:click="c.currentHP += 1">[+]</button>
             <button v-on:click="c.currentHP -= 1">[-]</button>
         </p>
-        <p>AC: {{ c.currentAC }} ({{ c.baseAC }})</p>
     </div>
 </template>
 
@@ -32,5 +33,8 @@ div.characterpage {
 	p.meta {
 		font-style: italic;
 	}
+    a {
+        color: #2c3e50;
+    }
 }
 </style>
