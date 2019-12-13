@@ -1,11 +1,28 @@
 <template>
 <v-app dark>
   <!-- <v-navigation-drawer app>
-
   </v-navigation-drawer> -->
 
   <v-app-bar dense app>
-    <!-- -->
+    <v-app-bar-nav-icon
+      @click.stop="drawer = !drawer">
+    </v-app-bar-nav-icon>
+    <v-toolbar-title>DnD Webapp</v-toolbar-title>
+    <v-spacer></v-spacer>
+    <!-- Encounter builder button -->
+    <v-tooltip bottom>
+      <template v-slot:activator="{ on }">
+        <v-btn icon to="/characters" v-on="on"><v-icon>mdi-sword</v-icon></v-btn>
+      </template>
+      <span>Encounter Builder</span>
+    </v-tooltip>
+    <!-- Characters button -->
+    <v-tooltip bottom>
+      <template v-slot:activator="{ on }">
+        <v-btn icon to="/characters" v-on="on"><v-icon>mdi-campfire</v-icon></v-btn>
+      </template>
+      <span>Characters</span>
+    </v-tooltip>
   </v-app-bar>
 
   <v-content>
