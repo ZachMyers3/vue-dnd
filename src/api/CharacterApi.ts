@@ -16,18 +16,18 @@ interface characterInterface {
   character: CharacterDTO
 }
 
-  export abstract class CharacterApi {
-    private static charactersAxios = axios.create();
-  
-    static async getAllCharacters(): Promise<Character[]>{
-      let response = await this.charactersAxios.get<RequestInterface>(API_URL + 'characters');
-      return response.data.characters.map(characterDTO => new Character(characterDTO));
-    }
+export abstract class CharacterApi {
+  private static charactersAxios = axios.create();
 
-    static async getCharacter(id: string): Promise<Character> {
-      console.log('Getting character ' + id + '...');
-      let response = await this.charactersAxios.get<characterInterface>(API_URL + 'character?_id=' + id);
-      console.log(response);
-      return new Character(response.data.character);
-    }
+  static async getAllCharacters(): Promise<Character[]>{
+    let response = await this.charactersAxios.get<RequestInterface>(API_URL + 'characters');
+    return response.data.characters.map(characterDTO => new Character(characterDTO));
   }
+
+  static async getCharacter(id: string): Promise<Character> {
+    console.log('Getting character ' + id + '...');
+    let response = await this.charactersAxios.get<characterInterface>(API_URL + 'character?_id=' + id);
+    console.log(response);
+    return new Character(response.data.character);
+  }
+}
