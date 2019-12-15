@@ -25,14 +25,13 @@
     <!-- Monsters button -->
     <v-tooltip bottom>
       <template v-slot:activator="{ on }">
-        <v-btn icon to="/monsters" v-on="on"><v-icon>mdi-pine-tree</v-icon></v-btn>
+        <v-btn icon to="/monsters/1" v-on="on"><v-icon>mdi-pine-tree</v-icon></v-btn>
       </template>
       <span>Monsters</span>
     </v-tooltip>
   </v-app-bar>
 
   <v-content>
-    <!-- <PlayerCharacterPage v-for="c in characters" :c="c" :key="c.firstName" /> -->
     <router-view></router-view>
   </v-content>
 
