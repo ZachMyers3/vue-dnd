@@ -19,6 +19,7 @@
         :search="search"
         dense
       >
+        <!-- templatizes the fullname field, adds router link -->
         <template v-slot:item.fullName="{ item }">
           <div class="fullName">
             <router-link :to="{ name: 'characterInfo', params: { id: item._id }}">
