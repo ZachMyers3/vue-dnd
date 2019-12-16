@@ -1,5 +1,5 @@
 export interface IMonster {
-    id?: string,
+    _id?: string,
     alignment: string,
     armor_class: number,
     challenge_rating: number,
@@ -29,7 +29,7 @@ export interface IMonster {
 }
 
 export class MonsterDTO implements IMonster {
-    id?: string = '';
+    _id?: string = '';
     alignment: string = '';
     armor_class: number = 0;
     challenge_rating: number = 0;

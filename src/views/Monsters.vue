@@ -1,29 +1,24 @@
 <template>
-    <!-- <div v-if=!loading>
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>CR</th>
-                </tr>
-            </thead>
-            <tbody>
-                <MonsterLine v-for="m in monsters" :m="m" :key="m._id" />
-            </tbody>
-        </table>
-        <button v-on:click="prevPage()">Prev</button>
-        <button v-on:click="nextPage()">Next</button>
-    </div>
-    <p v-else>Loading...</p> -->
     <div v-if="!loading">
-        <div class="ui container">
+        <v-card>
+            <v-card-title>
+                Monsters
+                <v-spacer></v-spacer>
+                <v-text-field
+                    v-model="search"
+                    append-icon="mdi-search"
+                    label="Search"
+                    single-line
+                    hide-details
+                ></v-text-field>
+            </v-card-title>
             <v-data-table
-              :headers="headers"
-              :items="monsters"
-              :items-per-page="10"
-              class="elevation-1"
+                :headers="headers"
+                :items="monsters"
+                :item-key="monsters._id"
+                :search="search"
             ></v-data-table>
-        </div>
+        </v-card>
     </div>
     <p v-else>Loading...</p>
 </template>
@@ -55,7 +50,7 @@ export default class Monsters extends Vue {
     private monsters: Monster[] = []
 
     async mounted():Promise<void> {
-        this.getMonsters()
+        this.getAllMonsters()
     }
 
     async nextPage():Promise<void> {
@@ -63,7 +58,7 @@ export default class Monsters extends Vue {
             return
         }
         this.start += 10;
-        this.getMonsters()
+        this.getAllMonsters()
     }
 
     async prevPage():Promise<void> {
@@ -71,7 +66,7 @@ export default class Monsters extends Vue {
         if (this.start < 1) {
             this.start = 1;
         }
-        this.getMonsters()
+        this.getAllMonsters()
     }
 
     async getMonsters():Promise<void> {
@@ -80,13 +75,20 @@ export default class Monsters extends Vue {
         this.loading = !this.loading;
     }
 
+    async getAllMonsters():Promise<void> {
+        this.loading = !this.loading;
+        this.monsters = await MonsterApi.getAllMonsters()
+        this.loading = !this.loading;
+    }
+
     data() {
         return {
             headers: [
-                { text: 'Name' },
-                { text: 'Test1' },
-                { text: 'Test2' }
-            ]
+                { text: 'Name', value: 'name' },
+                { text: 'CR', value: 'challenge_rating' },
+                { text: 'HP', value: 'hit_points' }
+            ],
+            search: ''
         }
     }
 }

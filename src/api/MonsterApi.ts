@@ -13,7 +13,12 @@ interface PaginationInterface {
     from: 1,
     to: 15,
     data: MonsterDTO[]
-  }
+}
+
+interface allMonsterInterface {
+    ok: boolean,
+    data: MonsterDTO[]
+}
 
 interface RequestInterface {
     count: number,
@@ -36,6 +41,11 @@ export abstract class MonsterApi {
     static async getMonsters(page=1): Promise<Monster[]> {
         let response = await this.monsterAxios.get<PaginationInterface>(`${API_URL}/monsters?page=${page}`);
         return response.data.data.map(monsterDTO => new Monster(monsterDTO));
+    }
+
+    static async getAllMonsters(): Promise<Monster[]> {
+        let response = await this.monsterAxios.get<allMonsterInterface>(`${API_URL}/monsters/all`);
+        return response.data.data.map(MonsterDTO => new Monster(MonsterDTO));
     }
 
     static async getMonster(id:string): Promise<Monster> {
