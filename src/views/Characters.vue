@@ -18,7 +18,15 @@
         :item-key="characters._id"
         :search="search"
         dense
-      ></v-data-table>
+      >
+        <template v-slot:item.fullName="{ item }">
+          <div class="fullName">
+            <router-link :to="{ name: 'characterInfo', params: { id: item._id }}">
+              {{ item.fullName }}
+            </router-link>
+          </div>
+        </template>
+      </v-data-table>
     </v-card>
   </div>
   <p v-else>Loading...</p>
@@ -61,6 +69,13 @@ export default class Characters extends Vue {
 </script>
 
 <style lang="scss">
+div.fullName {
+  a {
+    color: #2c3e50;
+    text-decoration: none;
+  }
+}
+
 div.characterpage {
     h2 {
 		text-decoration: underline;

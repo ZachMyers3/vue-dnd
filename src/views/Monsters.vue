@@ -19,8 +19,6 @@
                 :search="search"
                 dense
             >
-                <!-- <template v-slot:item.name="{ name }">
-                </template> -->
                 <!-- template to color CR by strength -->
                 <template v-slot:item.challenge_rating="{ item }">
                     <v-chip :color="getColor(item.challenge_rating)" dark>{{ item.challenge_rating }}</v-chip>
