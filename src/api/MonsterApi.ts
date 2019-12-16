@@ -34,8 +34,8 @@ export abstract class MonsterApi {
     private static monsterAxios = axios.create();
 
     static async getMonsters(page=1): Promise<Monster[]> {
-        let response = await this.monsterAxios.get<RequestInterface>(`${API_URL}/monsters?page=${page}`);
-        return response.data.monsters.map(monsterDTO => new Monster(monsterDTO));
+        let response = await this.monsterAxios.get<PaginationInterface>(`${API_URL}/monsters?page=${page}`);
+        return response.data.data.map(monsterDTO => new Monster(monsterDTO));
     }
 
     static async getMonster(id:string): Promise<Monster> {
