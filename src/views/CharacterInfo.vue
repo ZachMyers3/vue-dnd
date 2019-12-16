@@ -24,11 +24,7 @@ import CharacterPage from '../components/CharacterPage.vue'
 import Character, { CharacterDTO } from '@/models/Character';
 import { CharacterApi } from '@/api/CharacterApi';
 
-@Component({
-  components: {
-    CharacterPage,
-  },
-})
+@Component({ })
 export default class CharacterInfo extends Vue { 
     @Prop() private id!: string;
     private c!: Character;

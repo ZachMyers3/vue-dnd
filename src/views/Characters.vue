@@ -1,28 +1,61 @@
 <template>
-    <div v-if=characters>
-        <CharacterPage v-for="c in characters" :c="c" :key="c._id" />
-    </div>
-    <p v-else>Loading...</p>
+  <div v-if=!loading>
+    <v-card>
+      <v-card-title>
+        Characters
+        <v-spacer></v-spacer>
+        <v-text-field
+          v-model="search"
+          append-icon="mdi-search"
+          label="Search"
+          single-line
+          hide-details
+        ></v-text-field>
+      </v-card-title>
+      <v-data-table
+        :headers="headers"
+        :items="characters"
+        :item-key="characters._id"
+        :search="search"
+        dense
+      ></v-data-table>
+    </v-card>
+  </div>
+  <p v-else>Loading...</p>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
-import CharacterPage from '../components/CharacterPage.vue'
 import Character from '@/models/Character';
 import { CharacterApi } from '@/api/CharacterApi';
 
-@Component({
-  components: {
-    CharacterPage,
-  },
-})
+@Component({ })
 export default class Characters extends Vue {
+    private loading: boolean = false;
+    private search: string = '';
+    private headers: any[] = [
+        { text: 'Name', value: 'fullName' },
+        { text: 'HP', value: 'maxHP' },
+        { text: 'AC', value: 'currentAC'},
+        { text: 'STR', value: 'strength' },
+        { text: 'DEX', value: 'dexterity' },
+        { text: 'CON', value: 'constitution' },
+        { text: 'INT', value: 'intelligence' },
+        { text: 'WIS', value: 'wisdom' },
+        { text: 'CHA', value: 'charisma' }
+    ];
     // gather characters from API
     private characters: Character[] = []
     async mounted():Promise<void> {
-      this.characters = await CharacterApi.getAllCharacters();
+        this.getAllCharacters();
+    }
+
+    async getAllCharacters() {
+        this.loading = !this.loading;
+        this.characters = await CharacterApi.getAllCharacters();
+        this.loading = !this.loading;
     }
 }
 </script>

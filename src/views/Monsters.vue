@@ -35,15 +35,10 @@
 import Vue from 'vue'
 import Component from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
-import MonsterLine from '../components/MonsterLine.vue'
 import Monster from '@/models/Monster';
 import { MonsterApi } from '@/api/MonsterApi';
 
-@Component({
-  components: {
-    MonsterLine
-  },
-})
+@Component({})
 export default class Monsters extends Vue {
     private start: number = 1
     private loading: boolean = false;
