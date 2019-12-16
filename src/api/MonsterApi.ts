@@ -3,6 +3,18 @@ import axios from 'axios';
 
 const API_URL = 'https://flask-dnd.herokuapp.com/api/v1'
 
+interface PaginationInterface {
+    total: number,
+    per_page: number,
+    current_page: number,
+    last_page: number,
+    next_page_url: string,
+    prev_page_url: null,
+    from: 1,
+    to: 15,
+    data: MonsterDTO[]
+  }
+
 interface RequestInterface {
     count: number,
     limit: number,
@@ -13,11 +25,21 @@ interface RequestInterface {
     monsters: MonsterDTO[]
 }
 
+interface MonsterInterface {
+    ok: boolean,
+    monster: MonsterDTO
+}
+
 export abstract class MonsterApi {
     private static monsterAxios = axios.create();
 
-    static async getMonsters(start=1, limit=10): Promise<Monster[]> {
-        let response = await this.monsterAxios.get<RequestInterface>(`${API_URL}/monsters?start=${start}&limit=${limit}`);
+    static async getMonsters(page=1): Promise<Monster[]> {
+        let response = await this.monsterAxios.get<RequestInterface>(`${API_URL}/monsters?page=${page}`);
         return response.data.monsters.map(monsterDTO => new Monster(monsterDTO));
+    }
+
+    static async getMonster(id:string): Promise<Monster> {
+        let response = await this.monsterAxios.get<MonsterInterface>(`${API_URL}/monster?_id=${id}`)
+        return new Monster(response.data.monster)
     }
 }

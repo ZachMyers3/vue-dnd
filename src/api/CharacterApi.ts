@@ -3,6 +3,19 @@ import axios from 'axios';
 
 const API_URL = 'https://flask-dnd.herokuapp.com/api/v1'
 
+// designed as per vuetable-2
+interface PaginationInterface {
+  total: number,
+  per_page: number,
+  current_page: number,
+  last_page: number,
+  next_page_url: string,
+  prev_page_url: null,
+  from: 1,
+  to: 15,
+  data: CharacterDTO[]
+}
+
 interface RequestInterface {
     page: number,
     per_page: number,

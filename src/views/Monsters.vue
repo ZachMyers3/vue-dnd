@@ -1,5 +1,5 @@
 <template>
-    <div v-if=monsters>
+    <!-- <div v-if=!loading>
         <table>
             <thead>
                 <tr>
@@ -8,12 +8,22 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Adds in tr and th data -->
                 <MonsterLine v-for="m in monsters" :m="m" :key="m._id" />
             </tbody>
         </table>
         <button v-on:click="prevPage()">Prev</button>
         <button v-on:click="nextPage()">Next</button>
+    </div>
+    <p v-else>Loading...</p> -->
+    <div v-if="!loading">
+        <div class="ui container">
+            <v-data-table
+              :headers="headers"
+              :items="monsters"
+              :items-per-page="10"
+              class="elevation-1"
+            ></v-data-table>
+        </div>
     </div>
     <p v-else>Loading...</p>
 </template>
@@ -28,21 +38,24 @@ import { MonsterApi } from '@/api/MonsterApi';
 
 @Component({
   components: {
-    MonsterLine,
+    MonsterLine
   },
 })
 export default class Monsters extends Vue {
     // start where the api query begins, limit is number of results
     // next is for paging to the next page
     // @Prop() private start!: number;
+    private api_url: string = "https://flask-dnd.herokuapp.com/api/v1"
+    private api_endpoint: string = "monsters"
     private start: number = 1;
     private limit: number = 10;
     private next: number = this.start + this.limit;
+    private loading: boolean = false;
     // gather characters from API
     private monsters: Monster[] = []
 
     async mounted():Promise<void> {
-      this.monsters = await MonsterApi.getMonsters(this.start, this.limit);
+        this.getMonsters()
     }
 
     async nextPage():Promise<void> {
@@ -50,7 +63,7 @@ export default class Monsters extends Vue {
             return
         }
         this.start += 10;
-        this.monsters = await MonsterApi.getMonsters(this.start, this.limit)
+        this.getMonsters()
     }
 
     async prevPage():Promise<void> {
@@ -58,7 +71,23 @@ export default class Monsters extends Vue {
         if (this.start < 1) {
             this.start = 1;
         }
-        this.monsters = await MonsterApi.getMonsters(this.start, this.limit)
+        this.getMonsters()
+    }
+
+    async getMonsters():Promise<void> {
+        this.loading = !this.loading;
+        this.monsters = await MonsterApi.getMonsters(this.start)
+        this.loading = !this.loading;
+    }
+
+    data() {
+        return {
+            headers: [
+                { text: 'Name' },
+                { text: 'Test1' },
+                { text: 'Test2' }
+            ]
+        }
     }
 }
 </script>

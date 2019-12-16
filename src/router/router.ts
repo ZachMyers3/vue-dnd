@@ -2,6 +2,7 @@ import VueRouter from 'vue-router'
 import Monsters from '@/views/Monsters.vue'
 import Characters from '@/views/Characters.vue'
 import CharacterInfo from '@/views/CharacterInfo.vue'
+import MonsterInfo from '@/views/MonsterInfo.vue'
 
 const characterPrefix = 'character'
 
@@ -25,6 +26,12 @@ const routes = [
         name: 'monsters',
         path: '/monsters',
         component: Monsters
+    },
+    { // characterInfo route will use view PlayerCharacter
+        name: 'monsterInfo',
+        path: `/monster/:id`,
+        props: true,
+        component: MonsterInfo
     }
 ]
 
