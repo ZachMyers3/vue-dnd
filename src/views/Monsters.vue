@@ -17,7 +17,15 @@
                 :items="monsters"
                 :item-key="monsters._id"
                 :search="search"
-            ></v-data-table>
+                dense
+            >
+                <!-- <template v-slot:item.name="{ name }">
+                </template> -->
+                <!-- template to color CR by strength -->
+                <template v-slot:item.challenge_rating="{ item }">
+                    <v-chip :color="getColor(item.challenge_rating)" dark>{{ item.challenge_rating }}</v-chip>
+                </template>
+            </v-data-table>
         </v-card>
     </div>
     <p v-else>Loading...</p>
@@ -37,35 +45,24 @@ import { MonsterApi } from '@/api/MonsterApi';
   },
 })
 export default class Monsters extends Vue {
-    // start where the api query begins, limit is number of results
-    // next is for paging to the next page
-    // @Prop() private start!: number;
-    private api_url: string = "https://flask-dnd.herokuapp.com/api/v1"
-    private api_endpoint: string = "monsters"
-    private start: number = 1;
-    private limit: number = 10;
-    private next: number = this.start + this.limit;
+    private start: number = 1
     private loading: boolean = false;
-    // gather characters from API
     private monsters: Monster[] = []
+    private headers: any[] = [
+        { text: 'Name', value: 'name' },
+        { text: 'CR', value: 'challenge_rating' },
+        { text: 'HP', value: 'hit_points' },
+        { text: 'AC', value: 'armor_class'},
+        { text: 'STR', value: 'strength' },
+        { text: 'DEX', value: 'dexterity' },
+        { text: 'CON', value: 'constitution' },
+        { text: 'INT', value: 'intelligence' },
+        { text: 'WIS', value: 'wisdom' },
+        { text: 'CHA', value: 'charisma' }
+    ];
+    private search: string = '';
 
     async mounted():Promise<void> {
-        this.getAllMonsters()
-    }
-
-    async nextPage():Promise<void> {
-        if (this.monsters.length < 10) {
-            return
-        }
-        this.start += 10;
-        this.getAllMonsters()
-    }
-
-    async prevPage():Promise<void> {
-        this.start -= 10;
-        if (this.start < 1) {
-            this.start = 1;
-        }
         this.getAllMonsters()
     }
 
@@ -81,14 +78,14 @@ export default class Monsters extends Vue {
         this.loading = !this.loading;
     }
 
-    data() {
-        return {
-            headers: [
-                { text: 'Name', value: 'name' },
-                { text: 'CR', value: 'challenge_rating' },
-                { text: 'HP', value: 'hit_points' }
-            ],
-            search: ''
+    getColor(cr:string) {
+        var cr_int:number = parseFloat(cr)
+        if (cr_int > 15) {
+            return 'red'
+        } else if (cr_int > 5) {
+            return 'orange'
+        } else {
+            return 'green'
         }
     }
 }

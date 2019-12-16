@@ -38,9 +38,7 @@ export abstract class CharacterApi {
   }
 
   static async getCharacter(id: string): Promise<Character> {
-    console.log('Getting character ' + id + '...');
     let response = await this.charactersAxios.get<characterInterface>(`${API_URL}/character?_id=${id}`);
-    console.log(response);
     return new Character(response.data.character);
   }
 }
