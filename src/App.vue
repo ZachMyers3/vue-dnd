@@ -33,7 +33,7 @@
       <template v-slot:activator="{ on }">
         <v-btn icon to="/spells" v-on="on"><v-icon>mdi-auto-fix</v-icon></v-btn>
       </template>
-      <span>Monsters</span>
+      <span>Spells</span>
     </v-tooltip>
   </v-app-bar>
 

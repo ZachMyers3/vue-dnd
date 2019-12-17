@@ -4,6 +4,7 @@ import Characters from '@/views/Characters.vue'
 import Spells from '@/views/Spells.vue'
 import CharacterInfo from '@/views/CharacterInfo.vue'
 import MonsterInfo from '@/views/MonsterInfo.vue'
+import SpellInfo from '@/views/SpellInfo.vue'
 
 const characterPrefix = 'character'
 
@@ -38,6 +39,12 @@ const routes = [
         name: 'spells',
         path: '/spells',
         component: Spells
+    },
+    {
+        name: 'spellInfo',
+        path: `/spell/:id`,
+        props: true,
+        component: SpellInfo
     }
 ]
 

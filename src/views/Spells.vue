@@ -18,7 +18,16 @@
         :item-key="spells._id"
         :search="search"
         dense
-      ></v-data-table>
+      >
+        <!-- templatizes the fullname field, adds router link -->
+        <template v-slot:item.name="{ item }">
+          <div class="name">
+            <router-link :to="{ name: 'spellInfo', params: { id: item._id }}">
+              {{ item.name }}
+            </router-link>
+          </div>
+        </template>
+      </v-data-table>
     </v-card>
   </div>
   <p v-else>Loading...</p>
@@ -59,7 +68,7 @@ export default class Spells extends Vue {
 </script>
 
 <style lang="scss">
-div.fullName {
+div.name {
   a {
     color: #2c3e50;
     text-decoration: none;
