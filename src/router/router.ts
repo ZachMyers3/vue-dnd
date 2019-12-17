@@ -1,6 +1,7 @@
 import VueRouter from 'vue-router'
 import Monsters from '@/views/Monsters.vue'
 import Characters from '@/views/Characters.vue'
+import Spells from '@/views/Spells.vue'
 import CharacterInfo from '@/views/CharacterInfo.vue'
 import MonsterInfo from '@/views/MonsterInfo.vue'
 
@@ -32,6 +33,11 @@ const routes = [
         path: `/monster/:id`,
         props: true,
         component: MonsterInfo
+    },
+    {
+        name: 'spells',
+        path: '/spells',
+        component: Spells
     }
 ]
 

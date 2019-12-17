@@ -29,6 +29,12 @@
       </template>
       <span>Monsters</span>
     </v-tooltip>
+    <v-tooltip bottom>
+      <template v-slot:activator="{ on }">
+        <v-btn icon to="/spells" v-on="on"><v-icon>mdi-auto-fix</v-icon></v-btn>
+      </template>
+      <span>Monsters</span>
+    </v-tooltip>
   </v-app-bar>
 
   <v-content>
