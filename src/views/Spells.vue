@@ -19,7 +19,7 @@
         :search="search"
         dense
       >
-        <!-- templatizes the fullname field, adds router link -->
+        <!-- adds router link -->
         <template v-slot:item.name="{ item }">
           <div class="name">
             <router-link :to="{ name: 'spellInfo', params: { id: item._id }}">
@@ -27,6 +27,14 @@
             </router-link>
           </div>
         </template>
+        <!-- <template v-slot:item.classes="{ item }">
+          <div class="classes">
+            <div v-for="cls in item.classes" v-bind:key="cls.class">
+              {{ cls.class }}
+            </div>
+            {{ item.classes }}
+          </div>
+        </template> -->
       </v-data-table>
     </v-card>
   </div>
@@ -46,12 +54,12 @@ export default class Spells extends Vue {
     private search: string = '';
     private headers: any[] = [
         { text: 'Name', value: 'name' },
-        { text: 'Casting Time', value: 'casting_time' },
-        { text: 'Concentration', value: 'concentration' },
-        { text: 'Duration', value: 'duration' },
-        { text: 'Range', value: 'range' },
+        { text: 'Casting Time (s)', value: 'casting.casting_time' },
+        { text: 'Concentration', value: 'casting.concentration' },
+        { text: 'Duration (s)', value: 'casting.duration[0]' },
+        { text: 'Range (ft)', value: 'casting.range' },
         { text: 'Level', value: 'level' },
-        { text: 'Classes', value: 'class'}
+        { text: 'Classes', value: 'classesByComma'}
     ];
     // gather characters from API
     private spells: Spell[] = []
