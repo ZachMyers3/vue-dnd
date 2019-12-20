@@ -11,7 +11,12 @@
                     <v-list-item-title class="headline mb-1">
                         {{ s.name }}
                         <v-spacer></v-spacer>
-                        Level {{ s.level }} Spell
+                        <div v-if="s.level==0">
+                            Cantrip
+                        </div>
+                        <div v-else>
+                            Level {{ s.level }} Spell
+                        </div>
                     </v-list-item-title>
                     <v-list-item-subtitle>{{ s.book }} p. {{ s.page}} </v-list-item-subtitle>
                 </v-list-item-content>
