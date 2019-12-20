@@ -1,17 +1,52 @@
 <template>
     <div v-if="!loading" class="monsterinfo">
-        <v-card>
-            <v-card-title>
-                {{ s.name }}
-                <v-spacer></v-spacer>
-                {{ s.level }}
-            </v-card-title>
-            <p>
-                <b>Description: </b>{{ s.desc }}
-            </p>
-            <p v-if="s.higher_level">
-                <b>Overpower: </b>{{ s.higher_level }}
-            </p>
+        <v-card
+            class="mx-auto"
+            outlined
+        >
+            <!-- Header -->
+            <v-list-item three-line class="text-left">
+                <v-list-item-content>
+                    <div class="overline mb-4">SPELL</div>
+                    <v-list-item-title class="headline mb-1">
+                        {{ s.name }}
+                        <v-spacer></v-spacer>
+                        Level {{ s.level }} Spell
+                    </v-list-item-title>
+                    <v-list-item-subtitle>{{ s.book }} p. {{ s.page}} </v-list-item-subtitle>
+                </v-list-item-content>
+            </v-list-item>
+            <!-- Description -->
+            <v-list-item three-line class="text-left">
+                <v-list-item-content>
+                    <div class="overline mb-4">DESCRIPTION</div>
+                    <p><span v-html="s.desc"></span></p>
+                </v-list-item-content>
+            </v-list-item>
+            <!-- Casting and Components -->
+            <v-list-item three-line class="text-left">
+                <v-list-item-content>
+                    <div class="overline mb-4">CASTING</div>
+                    <v-simple-table>
+
+                        <tbody>
+                            <tr>
+                                <td>Cast Range (ft)</td>
+                                <td>{{ s.rangeString }}</td>
+                            </tr>
+                            <tr>
+                                <td>Cast Time (s)</td>
+                                <td>{{ s.casting.casting_time }}</td>
+                            </tr>
+                        </tbody>
+                    </v-simple-table>
+                </v-list-item-content>
+                <v-list-item-content>
+                    <div class="overline mb-4">COMPONENTS</div>
+                    <p>{{ s.components.raw }}</p>
+                    <p v-if="s.components.materials_needed">{{ s.components.materials_needed }}</p>
+                </v-list-item-content>
+            </v-list-item> 
         </v-card>
     </div>
     <p v-else>Loading...</p>

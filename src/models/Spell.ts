@@ -43,7 +43,12 @@ export class SpellDTO implements ISpell {
     desc: string = '';
     book: string = '';
     page: number = 0;
-    components: IComponents = {verbal: false, somatic: false, material: false, raw: '', materials_needed: ''};
+    components: IComponents = {
+        verbal: false, 
+        somatic: false, 
+        material: false, 
+        raw: '', 
+        materials_needed: ''};
     level: number = 0;
     school: string = '';
     classes: IClasses[] = [{
@@ -72,13 +77,107 @@ export default class Spell extends SpellDTO {
 
     get classesByComma(): string {
         var i:number = 0;
-        var class_list:string = '';
-        for (i = 0; i < this.classes.length; i++) {
-            class_list += this.classes[i].class
-            if (i != this.classes.length - 1) {
-                class_list += ', '
+        var result:string = '';
+        var length:number = this.classes.length
+        for (i = 0; i < length; i++) {
+            result += this.classes[i].class
+            if ((i != length - 1)) {
+                result += ', '
             }
         }
-        return class_list;
+        return result;
+    }
+
+    get durationsByComma(): string {
+        var i:number = 0;
+        var result:string = '';
+        var length:number = this.casting.duration.length
+        for (i = 0; i < length; i++) {
+            result += this.casting.duration[i]
+            if (i != length - 1) {
+                result += ', '
+            }
+        }
+        return result;
+    }
+
+    get concentrationSting(): string {
+        if (this.casting.concentration) {
+            return '✔'
+        } else {
+            return '✖'
+        }
+    }
+
+    get rangeString(): string {
+        let result:string = ''
+
+        if (this.casting.range >= 10000000000) {
+            result = 'unlimited';
+        } else if (this.casting.range >= 2640000) {
+            result = 'see description';
+        } else if (this.casting.range >= 5280) {
+            let miles:number = this.casting.range / 5280;
+            result = miles.toString() + ' mile(s)';
+        } else if (this.casting.range > 0) {
+            result = this.casting.range.toString() + ' feet';
+        } else {
+            // we have a casting range of zero, check for self etc.
+            if (this.casting.self) {
+                result = 'self'
+            } else if (this.casting.sight) {
+                result = 'sight'
+            } else if (this.casting.touch) {
+                result = 'touch'
+            } else {
+                result = this.casting.range.toString()
+            }
+        }
+
+        return result
+    }
+
+    get castTimeString(): string {
+        let result:string = '';
+        const MINUTE_TO_SECONDS:number = 60;
+        const HOUR_TO_MINUTES:number = 60 * MINUTE_TO_SECONDS;
+        const DAY_TO_HOURS:number = 24 * HOUR_TO_MINUTES;
+        const YEAR_TO_DAYS:number = 365 * DAY_TO_HOURS;
+
+        let time:number = this.casting.casting_time;
+        if (time >= 86400) {
+            time = time / DAY_TO_HOURS;
+            result = time.toString() + ' days'; 
+        } else if (time >= 3600) {
+            time = time / HOUR_TO_MINUTES;
+            result = time.toString();
+            if (time > 1) {
+                result += ' days';
+            } else {
+                result += ' day'
+            }
+        } else if (time >= 60) {
+            time = time / MINUTE_TO_SECONDS;
+            result = time.toString();
+            if (time > 1) {
+                result += ' minutes';
+            } else {
+                result += ' minute'
+            }
+        } else if (time > 6) {
+            result = time.toString() + ' seconds';
+        } else {
+            if (this.casting.action_type == 'action') {
+                result = 'action'
+            } else if (this.casting.action_type == 'bonus') {
+                result = 'bonus action'
+            } else if (this.casting.action_type == 'reaction') {
+                result = 'reaction'
+            } else {
+                result = this.casting.casting_time.toString()
+            }
+        }
+
+        return result
     }
 }

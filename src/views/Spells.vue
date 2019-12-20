@@ -54,10 +54,10 @@ export default class Spells extends Vue {
     private search: string = '';
     private headers: any[] = [
         { text: 'Name', value: 'name' },
-        { text: 'Casting Time (s)', value: 'casting.casting_time' },
-        { text: 'Concentration', value: 'casting.concentration' },
-        { text: 'Duration (s)', value: 'casting.duration[0]' },
-        { text: 'Range (ft)', value: 'casting.range' },
+        { text: 'Casting Time (s)', value: 'castTimeString' },
+        { text: 'Concentration', value: 'concentrationSting' },
+        { text: 'Duration (s)', value: 'durationsByComma' },
+        { text: 'Range (ft)', value: 'rangeString'},
         { text: 'Level', value: 'level' },
         { text: 'Classes', value: 'classesByComma'}
     ];
