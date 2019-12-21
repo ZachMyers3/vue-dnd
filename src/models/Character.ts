@@ -1,3 +1,15 @@
+interface IClass {
+    name: string,
+    level: number,
+    hitDice: string,
+    hitDiceTotal: number
+}
+
+interface ISkill {
+    name: string,
+    proficiency: boolean
+}
+
 export interface ICharacter {
     id?: string,
     firstName: string,
@@ -12,7 +24,15 @@ export interface ICharacter {
     intelligence: number,
     wisdom: number,
     charisma: number,
-    experiencePoints: number
+    experiencePoints: number,
+    alignment: string,
+    race: string,
+    gender: string,
+    diety: string,
+    size: string,
+    background: string,
+    classes: IClass[],
+    skills: ISkill[]
 }
 
 export class CharacterDTO implements ICharacter {
@@ -30,6 +50,22 @@ export class CharacterDTO implements ICharacter {
     wisdom: number = 0;
     charisma: number = 0;
     experiencePoints: number = 0;
+    alignment: string = '';
+    race: string = '';
+    gender: string = '';
+    diety: string = '';
+    size: string = '';
+    background: string = '';
+    classes: IClass[] = [{        
+        name: '',
+        level:  0,
+        hitDice: '',
+        hitDiceTotal: 0
+    }]
+    skills: ISkill[] = [{
+        name: '',
+        proficiency: false
+    }]
 }
 
 export default class Character extends CharacterDTO {

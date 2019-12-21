@@ -1,4 +1,4 @@
-export interface IComponents {
+interface IComponents {
     verbal: boolean,
     somatic: boolean,
     material: boolean,
@@ -6,7 +6,7 @@ export interface IComponents {
     materials_needed: string
 }
 
-export interface ICasting {
+interface ICasting {
     range: number,
     self: boolean,
     casting_time: number,
@@ -18,7 +18,7 @@ export interface ICasting {
     sight: boolean
 }
 
-export interface IClasses {
+interface IClasses {
     class: string,
     sub_class: string,
     class_level: number
@@ -118,9 +118,18 @@ export default class Spell extends SpellDTO {
             result = 'see description';
         } else if (this.casting.range >= 5280) {
             let miles:number = this.casting.range / 5280;
-            result = miles.toString() + ' mile(s)';
+            result = miles.toString();
+            if (miles > 1) {
+                result += ' miles';
+            } else {
+                result += ' mile';
+            }
         } else if (this.casting.range > 0) {
-            result = this.casting.range.toString() + ' feet';
+            if (this.casting.range > 1) {
+                result = this.casting.range.toString() + ' feet';
+            } else {
+                result = this.casting.range.toString() + ' foot';
+            }
         } else {
             // we have a casting range of zero, check for self etc.
             if (this.casting.self) {
@@ -133,7 +142,6 @@ export default class Spell extends SpellDTO {
                 result = this.casting.range.toString()
             }
         }
-
         return result
     }
 
@@ -147,14 +155,19 @@ export default class Spell extends SpellDTO {
         let time:number = this.casting.casting_time;
         if (time >= 86400) {
             time = time / DAY_TO_HOURS;
-            result = time.toString() + ' days'; 
-        } else if (time >= 3600) {
-            time = time / HOUR_TO_MINUTES;
             result = time.toString();
             if (time > 1) {
                 result += ' days';
             } else {
                 result += ' day'
+            }
+        } else if (time >= 3600) {
+            time = time / HOUR_TO_MINUTES;
+            result = time.toString();
+            if (time > 1) {
+                result += ' hours';
+            } else {
+                result += ' hour'
             }
         } else if (time >= 60) {
             time = time / MINUTE_TO_SECONDS;
@@ -177,7 +190,6 @@ export default class Spell extends SpellDTO {
                 result = this.casting.casting_time.toString()
             }
         }
-
         return result
     }
 }
