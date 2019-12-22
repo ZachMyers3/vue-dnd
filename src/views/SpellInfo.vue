@@ -25,7 +25,7 @@
             <v-list-item three-line class="text-left">
                 <v-list-item-content>
                     <div class="overline mb-4">DESCRIPTION</div>
-                    <p><span v-html="s.desc"></span></p>
+                    <p class="spell-desc"><span v-html="s.desc"></span></p>
                 </v-list-item-content>
             </v-list-item>
             <!-- Casting and Components -->
@@ -84,4 +84,15 @@ export default class MonsterInfo extends Vue {
 </script>
 
 <style lang="scss">
+p.spell-desc {
+    table {
+        border-collapse: collapse;
+        border: 1px solid;
+        margin-bottom: 15px;
+    }
+    table, th, td {
+        border: 1px solid black;
+        padding: 2px;
+    }
+}
 </style>

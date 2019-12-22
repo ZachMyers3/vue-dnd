@@ -28,6 +28,7 @@ export interface ISpell {
     _id: string,
     name: string,
     desc: string,
+    higher_level: string,
     book: string,
     page: number,
     components: IComponents,
@@ -41,6 +42,7 @@ export class SpellDTO implements ISpell {
     _id: string = '';
     name: string = '';
     desc: string = '';
+    higher_level: string = '';
     book: string = '';
     page: number = 0;
     components: IComponents = {
