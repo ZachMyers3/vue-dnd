@@ -87,4 +87,10 @@ export default class Equipment extends EquipmentDTO {
         super();
         Object.assign(this, dto);
     }
+
+    get costString(): string {
+        let result: string = ''
+        result = this.cost.quantity.toString() + ' ' + this.cost.unit;
+        return result;
+    }
 }

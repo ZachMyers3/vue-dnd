@@ -35,6 +35,12 @@
       </template>
       <span>Spells</span>
     </v-tooltip>
+    <v-tooltip bottom>
+      <template v-slot:activator="{ on }">
+        <v-btn icon to="/equipment" v-on="on"><v-icon>mdi-storefront</v-icon></v-btn>
+      </template>
+      <span>Equipment</span>
+    </v-tooltip>
   </v-app-bar>
 
   <v-content>
