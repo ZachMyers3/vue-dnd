@@ -14,8 +14,13 @@
             </v-card-title>
             <v-select
                 :items="categoryNames"
-                label="Filter" clearable
+                v-model="filterSelection"
+                label="Filter" 
+                clearable
+                multiple
                 v-on:change="filterTable()"
+                solo
+                chips
             >
             </v-select>
             <v-data-table
@@ -53,16 +58,30 @@ export default class EquipmentTable extends Vue {
     ];
     private search: string = '';
     private categories: EquipmentCategories[] = [];
-    private categoryNames: String[] = [];
+    private categoryNames: string[] = [];
+    private filterSelection: string[] = [];
 
     async mounted():Promise<void> {
-        this.getAll()
+        this.getAll();
         this.getAllCategories();
     }
 
     async getAll():Promise<void> {
         this.loading = !this.loading;
         this.equipment = await EquipmentApi.getAllEquipment();
+        this.loading = !this.loading;
+    }
+
+    async getByCategories():Promise<void> {
+        this.loading = !this.loading;
+        // clear out and rebuild list
+        this.equipment = [];
+        let i:number = 0;
+        for (i=0; i < this.filterSelection.length; i++) {
+            let tempEquipment = await EquipmentApi.getEquipmentByCategory(this.filterSelection[i]);
+            console.log(tempEquipment);
+            this.equipment = this.equipment.concat(tempEquipment);
+        }
         this.loading = !this.loading;
     }
 
@@ -83,7 +102,12 @@ export default class EquipmentTable extends Vue {
     }
 
     filterTable() {
-        console.log('FilterTable!');
+        console.log(this.filterSelection);
+        if (this.filterSelection.length == 0) {
+            this.getAll();
+        } else {
+            this.getByCategories();
+        }
     }
 }
 </script>
