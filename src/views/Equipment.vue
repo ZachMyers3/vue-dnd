@@ -30,6 +30,14 @@
                 :search="search"
                 dense
             >
+            <!-- adds router link -->
+                <template v-slot:item.name="{ item }">
+                <div class="name">
+                    <router-link :to="{ name: 'equipmentInfo', params: { id: item._id }}">
+                    {{ item.name }}
+                    </router-link>
+                </div>
+                </template>
             </v-data-table>
         </v-card>
     </div>
@@ -79,7 +87,6 @@ export default class EquipmentTable extends Vue {
         let i:number = 0;
         for (i=0; i < this.filterSelection.length; i++) {
             let tempEquipment = await EquipmentApi.getEquipmentByCategory(this.filterSelection[i]);
-            console.log(tempEquipment);
             this.equipment = this.equipment.concat(tempEquipment);
         }
         this.loading = !this.loading;
@@ -102,7 +109,6 @@ export default class EquipmentTable extends Vue {
     }
 
     filterTable() {
-        console.log(this.filterSelection);
         if (this.filterSelection.length == 0) {
             this.getAll();
         } else {

@@ -89,8 +89,20 @@ export default class Equipment extends EquipmentDTO {
     }
 
     get costString(): string {
-        let result: string = ''
+        let result: string = '';
         result = this.cost.quantity.toString() + ' ' + this.cost.unit;
         return result;
+    }
+
+    get weightString(): string {
+        let result: string = '';
+        if (this.weight == 0) {
+            result = 'No Weight'
+        } else if (this.weight == 1) {
+            result = this.weight.toString() + ' lb';
+        } else {
+            result = this.weight.toString() + ' lbs';
+        }
+        return result
     }
 }

@@ -6,6 +6,7 @@ import CharacterInfo from '@/views/CharacterInfo.vue'
 import MonsterInfo from '@/views/MonsterInfo.vue'
 import SpellInfo from '@/views/SpellInfo.vue'
 import Equipment from '@/views/Equipment.vue'
+import EquipmentInfo from '@/views/EquipmentInfo.vue'
 
 const characterPrefix = 'character'
 
@@ -51,6 +52,12 @@ const routes = [
         name: 'equipment',
         path: '/equipment',
         component: Equipment
+    },
+    {
+        name: 'equipmentInfo',
+        path: `/equipment/:id`,
+        props: true,
+        component: EquipmentInfo
     }
 ]
 
