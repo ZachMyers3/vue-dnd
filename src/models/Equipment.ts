@@ -30,7 +30,7 @@ interface ThrowRange {
 }
 
 export interface IEquipment {
-    id: string,
+    _id: string,
     catagory_range: string,
     cost: Cost,
     damage: Damage,
@@ -47,7 +47,7 @@ export interface IEquipment {
 }
 
 export class EquipmentDTO implements IEquipment {
-    id: string = '';
+    _id: string = '';
     catagory_range: string = '';
     cost: Cost = {
         quantity: 0,

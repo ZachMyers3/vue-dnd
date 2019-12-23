@@ -32,8 +32,8 @@
             <v-list-item three-line class="text-left">
                 <v-list-item-content>
                     <div class="overline mb-4">CASTING</div>
-                    <v-simple-table>
-
+                    <div class="casting">
+                    <v-simple-table class="casting-table">
                         <tbody>
                             <tr>
                                 <td>Cast Range (ft)</td>
@@ -45,6 +45,7 @@
                             </tr>
                         </tbody>
                     </v-simple-table>
+                    </div>
                 </v-list-item-content>
                 <v-list-item-content>
                     <div class="overline mb-4">COMPONENTS</div>
@@ -94,5 +95,8 @@ p.spell-desc {
         border: 1px solid black;
         padding: 2px;
     }
+}
+div.casting-table {
+    margin: 0px;
 }
 </style>
