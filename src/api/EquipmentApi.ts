@@ -1,7 +1,6 @@
 import Equipment, { EquipmentDTO } from '@/models/Equipment';
 import axios from 'axios';
-
-const API_URL = 'https://flask-dnd.herokuapp.com/api/v1'
+import { API_URL } from '@/api/ApiVars';
 
 interface RequestInterfaceMany {
     ok: boolean,

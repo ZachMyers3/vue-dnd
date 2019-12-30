@@ -1,7 +1,6 @@
 import Character, { CharacterDTO } from '@/models/Character';
 import axios from 'axios';
-
-const API_URL = 'https://flask-dnd.herokuapp.com/api/v1'
+import { API_URL } from '@/api/ApiVars';
 
 // designed as per vuetable-2
 interface PaginationInterface {

@@ -1,7 +1,6 @@
 import Monster, { MonsterDTO } from '@/models/Monster';
 import axios from 'axios';
-
-const API_URL = 'https://flask-dnd.herokuapp.com/api/v1'
+import { API_URL } from '@/api/ApiVars';
 
 interface PaginationInterface {
     total: number,
