@@ -90,7 +90,6 @@ export default class MonsterInfo extends Vue {
         this.loading = !this.loading;
         this.item = await MonsterApi.getMonster(this.id);
         this.loading = !this.loading;
-        console.log(this.item);
     }
 }
 </script>
