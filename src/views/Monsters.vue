@@ -23,6 +23,13 @@
                 <template v-slot:item.challenge_rating="{ item }">
                     <v-chip :color="getColor(item.challenge_rating)" dark>{{ item.challenge_rating }}</v-chip>
                 </template>
+                <template v-slot:item.name="{ item }">
+                <div class="name">
+                    <router-link :to="{ name: 'monsterInfo', params: { id: item._id }}">
+                    {{ item.name }}
+                    </router-link>
+                </div>
+                </template>
             </v-data-table>
         </v-card>
     </div>

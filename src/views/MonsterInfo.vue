@@ -1,11 +1,65 @@
 <template>
-    <div v-if="!loading" class="monsterinfo">
-        <h2>{{ m.name }}</h2>
-        <h3>{{ m.alignment | capitalize }} {{ m.type | capitalize }}</h3>
-
-        <p>
-        {{ m.hit_points }} HP  
-        </p>
+    <div v-if="!loading" class="equipmentinfo">
+        <v-card
+            class="mx-auto"
+            outlined
+        >
+            <!-- Header -->
+            <v-list-item three-line class="text-left">
+                <v-list-item-content>
+                    <div class="overline mb-4">MONSTER</div>
+                    <v-list-item-title class="headline mb-1">
+                        {{ item.name | capitalize }}
+                        <v-spacer>CR {{ item.challenge_rating }}</v-spacer>
+                    </v-list-item-title>
+                    <v-list-item-subtitle></v-list-item-subtitle>
+                </v-list-item-content>
+            </v-list-item>
+            <!-- Casting and Components -->
+            <v-list-item three-line class="text-left">
+                <v-list-item-content>
+                    <div class="overline mb-4">STATS</div>
+                    <v-simple-table>
+                        <tbody>
+                            <tr>
+                                <td>STR</td>
+                                <td>{{ item.strength }}</td>
+                            </tr>
+                            <tr>
+                                <td>DEX</td>
+                                <td>{{ item.dexterity }}</td>
+                            </tr>
+                            <tr>
+                                <td>CON</td>
+                                <td>{{ item.constitution }}</td>
+                            </tr>
+                            <tr>
+                                <td>INT</td>
+                                <td>{{ item.intelligence }}</td>
+                            </tr>
+                            <tr>
+                                <td>WIS</td>
+                                <td>{{ item.wisdom }}</td>
+                            </tr>
+                            <tr>
+                                <td>CHA</td>
+                                <td>{{ item.charisma }}</td>
+                            </tr>
+                        </tbody>
+                    </v-simple-table>
+                </v-list-item-content>
+                <v-list-item-content>
+                    <div class="overline mb-4">ATTACKS</div>
+                    <v-data-table
+                        :headers="attack_headers"
+                        :items="item.actions"
+                        :item-key="item.actions.name"
+                        dense
+                    >
+                    </v-data-table>
+                </v-list-item-content>
+            </v-list-item> 
+        </v-card>
     </div>
     <p v-else>Loading...</p>
 </template>
@@ -26,18 +80,17 @@ import { MonsterApi } from '@/api/MonsterApi';
  })
 export default class MonsterInfo extends Vue { 
     @Prop() private id!: string;
-    private m!: Monster;
+    private item!: Monster;
     private loading:boolean = false;
+    private attack_headers: any[] = [
+        { text: 'Name', value: 'name' },
+        { text: 'Description', value: 'desc'}    
+    ]
     async mounted():Promise<void> {
         this.loading = !this.loading;
-        this.m = await MonsterApi.getMonster(this.id);
+        this.item = await MonsterApi.getMonster(this.id);
         this.loading = !this.loading;
-    }
-    // data funciton to pass private c value to template
-    data() {
-      return {
-        m: Monster
-      }
+        console.log(this.item);
     }
 }
 </script>
