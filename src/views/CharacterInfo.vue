@@ -1,26 +1,28 @@
 <template>
-  <div v-if="c" class="characterpage">
-    <v-card>
-      <v-card-title>
-        {{ c.fullName }}
-        <v-spacer></v-spacer>
-        Level {{ c.level }}
-      </v-card-title>
-    </v-card>
-      <h2>{{ c.fullName }} - Lvl {{ c.level }}</h2>
-      <p>
-          HP: {{ c.currentHP }} / {{ c.maxHP }}
-          <button v-on:click="c.currentHP -= 1">[-]</button>
-          <button v-on:click="c.currentHP += 1">[+]</button>
-      </p>
-      <p>AC: {{ c.currentAC }} ({{ c.baseAC }})</p>
-      <p>
-        <router-link>
-          RouterLink
-        </router-link>
-      </p>
-  </div>
-  <p v-else>Loading...</p>
+    <div v-if="!loading" class="info">
+        <v-card
+            class="mx-auto"
+            outlined
+        >
+            <!-- Header -->
+            <v-list-item three-line class="text-left">
+                <v-list-item-content>
+                    <div class="overline mb-4">SPELL</div>
+                    <v-list-item-title class="headline mb-1">
+                        {{ c.fullName }}
+                        <v-spacer></v-spacer>
+                        Level {{ c.level }}
+                    </v-list-item-title>
+                    <v-list-item-subtitle>{{ c.classesByComma }}</v-list-item-subtitle>
+                </v-list-item-content>
+            </v-list-item>
+
+            <!-- Casting and Components -->
+            <v-list-item three-line class="text-left">
+            </v-list-item> 
+        </v-card>
+    </div>
+    <p v-else>Loading...</p>
 </template>
 
 <script lang="ts">
@@ -35,10 +37,14 @@ import { CharacterApi } from '@/api/CharacterApi';
 export default class CharacterInfo extends Vue { 
     @Prop() private id!: string;
     private c!: Character;
+    private loading: boolean = false;
+
     async mounted():Promise<void> {
-        this.c = await CharacterApi.getCharacter(this.id);
+      this.loading = !this.loading;
+      this.c = await CharacterApi.getCharacter(this.id);
+      this.loading = !this.loading;
     }
-    // data funciton to pass private c value to template
+
     data() {
       return {
         c: Character

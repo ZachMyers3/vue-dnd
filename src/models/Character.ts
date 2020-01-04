@@ -1,8 +1,6 @@
 interface IClass {
     name: string,
-    level: number,
-    hitDice: string,
-    hitDiceTotal: number
+    level: number
 }
 
 interface ISkill {
@@ -31,7 +29,7 @@ export interface ICharacter {
     diety: string,
     size: string,
     background: string,
-    classes: IClass[],
+    class: IClass[],
     skills: ISkill[]
 }
 
@@ -56,11 +54,9 @@ export class CharacterDTO implements ICharacter {
     diety: string = '';
     size: string = '';
     background: string = '';
-    classes: IClass[] = [{        
+    class: IClass[] = [{        
         name: '',
-        level:  0,
-        hitDice: '',
-        hitDiceTotal: 0
+        level:  0
     }]
     skills: ISkill[] = [{
         name: '',
@@ -90,12 +86,23 @@ export default class Character extends CharacterDTO {
     }
 
     get level(): number {
-        var i:number = 0;
-        for (i = 0; i < this.levelTiers.length; i++) {
-            if (this.experiencePoints < this.levelTiers[i]) {
-                return i;
+        let totalLevel:number = 0;
+        for (let cclass of this.class) {
+            totalLevel += cclass.level;
+        }
+        return totalLevel;
+    }
+
+    get classesByComma(): string {
+        let result:string = '';
+        let i:number = 0;
+        var length:number = this.class.length
+        for (i = 0; i < length; i++) {
+            result += this.class[i].name
+            if ((i != length - 1)) {
+                result += ', '
             }
         }
-        return 0;
+        return result
     }
 }

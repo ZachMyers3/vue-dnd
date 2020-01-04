@@ -47,7 +47,6 @@ export default class Characters extends Vue {
     private headers: any[] = [
         { text: 'Name', value: 'fullName' },
         { text: 'HP', value: 'maxHP' },
-        { text: 'AC', value: 'currentAC'},
         { text: 'STR', value: 'strength' },
         { text: 'DEX', value: 'dexterity' },
         { text: 'CON', value: 'constitution' },
