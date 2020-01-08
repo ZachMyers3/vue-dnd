@@ -95,7 +95,7 @@ export default class Spell extends SpellDTO {
         var result:string = '';
         var length:number = this.casting.duration.length
         for (i = 0; i < length; i++) {
-            result += this.casting.duration[i]
+            result += this.secondsToTime(this.casting.duration[i])
             if (i != length - 1) {
                 result += ', '
             }
@@ -148,13 +148,17 @@ export default class Spell extends SpellDTO {
     }
 
     get castTimeString(): string {
+        let result:string = this.secondsToTime(this.casting.casting_time);
+        return result
+    }
+    
+    secondsToTime(time:number): string {
         let result:string = '';
         const MINUTE_TO_SECONDS:number = 60;
         const HOUR_TO_MINUTES:number = 60 * MINUTE_TO_SECONDS;
         const DAY_TO_HOURS:number = 24 * HOUR_TO_MINUTES;
         const YEAR_TO_DAYS:number = 365 * DAY_TO_HOURS;
 
-        let time:number = this.casting.casting_time;
         if (time >= 86400) {
             time = time / DAY_TO_HOURS;
             result = time.toString();
@@ -192,6 +196,6 @@ export default class Spell extends SpellDTO {
                 result = this.casting.casting_time.toString()
             }
         }
-        return result
+        return result;
     }
 }
