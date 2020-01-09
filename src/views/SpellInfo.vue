@@ -41,7 +41,15 @@
                             </tr>
                             <tr>
                                 <td>Cast Time (s)</td>
-                                <td>{{ s.casting.casting_time }}</td>
+                                <td>{{ s.castTimeString }}</td>
+                            </tr>
+                            <tr>
+                                <td>Duration</td>
+                                <td>{{ s.durationsByComma }}</td>
+                            </tr>
+                            <tr>
+                                <td>Classes</td>
+                                <td>{{ s.classesByComma }}</td>
                             </tr>
                         </tbody>
                     </v-simple-table>
@@ -72,7 +80,7 @@ import { SpellApi } from '@/api/SpellApi';
         }
     }
  })
-export default class MonsterInfo extends Vue { 
+export default class SpellInfo extends Vue { 
     @Prop() private id!: string;
     private s!: Spell;
     private loading:boolean = false;
@@ -80,6 +88,11 @@ export default class MonsterInfo extends Vue {
         this.loading = !this.loading;
         this.s = await SpellApi.getSpell(this.id);
         this.loading = !this.loading;
+    }
+    data() {
+      return {
+        s: Spell
+      }
     }
 }
 </script>
