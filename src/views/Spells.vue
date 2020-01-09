@@ -22,7 +22,7 @@
         <!-- adds router link -->
         <template v-slot:item.name="{ item }">
           <div class="name">
-            <router-link :to="{ name: 'spellInfo', params: { id: item._id }}">
+            <router-link :to="{ name: 'spellInfo', params: { id: item.id }}">
               {{ item.name }}
             </router-link>
           </div>
