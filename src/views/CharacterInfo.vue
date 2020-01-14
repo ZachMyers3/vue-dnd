@@ -87,18 +87,37 @@
                         dense
                     >
                         <template v-slot:item.name="{ item }">
-                            <div class="name">
-                                <router-link :to="{ name: 'spellInfo', params: { id: item.id }}">
-                                {{ item.name }}
-                                </router-link>
-                            </div>
+                            <v-expansion-panels 
+                                :flat="true"
+                            >
+                            <v-expansion-panel :flat="true">
+                                <v-expansion-panel-header>{{ item.name }}</v-expansion-panel-header>
+                                <v-expansion-panel-content>
+                                    <v-lazy
+                                        v-model="isActive"
+                                        :options="{ threshold: .5 }"
+                                        min-height="200"
+                                        transition="fade-transition"
+                                    >
+                                        <ChSpellInfo :id="item.id"></ChSpellInfo>
+                                    </v-lazy>
+                                </v-expansion-panel-content>
+                            </v-expansion-panel>
+                            </v-expansion-panels>
                         </template>
                     </v-data-table>
                 </v-list-item-content>
             </v-list-item>
         </v-card>
     </div>
-    <p v-else>Loading...</p>
+    <div v-else>
+        <v-overlay>
+            <v-progress-circular
+                indeterminate
+                size="64"
+            ></v-progress-circular>
+        </v-overlay>
+    </div>
 </template>
 
 <script lang="ts">
@@ -108,8 +127,13 @@ import { Prop } from 'vue-property-decorator';
 import CharacterPage from '../components/CharacterPage.vue'
 import Character, { CharacterDTO } from '@/models/Character';
 import { CharacterApi } from '@/api/CharacterApi';
+import ChSpellInfo from '@/components/ChSpellInfo.vue';
 
-@Component({ })
+@Component({ 
+    components: {
+        ChSpellInfo
+    }
+})
 export default class CharacterInfo extends Vue { 
     @Prop() private id!: string;
     private c!: Character;
@@ -135,6 +159,10 @@ export default class CharacterInfo extends Vue {
 </script>
 
 <style lang="scss">
+a {
+    color: #2c3e50;
+    text-decoration: none;
+}
 div.name {
   a {
     color: #2c3e50;

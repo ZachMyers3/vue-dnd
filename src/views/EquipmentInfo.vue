@@ -10,7 +10,14 @@
             <EqBase :item="item"></EqBase>
         </div>
     </div>
-    <p v-else>Loading...</p>
+    <div v-else>
+        <v-overlay>
+            <v-progress-circular
+                indeterminate
+                size="64"
+            ></v-progress-circular>
+        </v-overlay>
+    </div>
 </template>
 
 <script lang="ts">
