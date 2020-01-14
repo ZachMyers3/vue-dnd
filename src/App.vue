@@ -3,8 +3,31 @@
   <!-- <v-navigation-drawer app>
   </v-navigation-drawer> -->
 
+  <v-navigation-drawer
+    v-model="drawer"
+    absolute
+    temporary
+  >
+    <v-list dense>
+      <v-list-item
+        v-for="item in navItems"
+        :key="item.title"
+        link
+      >
+        <v-list-item-icon>
+          <v-icon>mdi-{{ item.icon }}</v-icon>
+        </v-list-item-icon>
+
+        <v-list-item-content>
+          <v-list-item-title>{{ item.title }}</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+    </v-list>
+  </v-navigation-drawer>
   <v-app-bar dense app>
-    <v-app-bar-nav-icon>
+    <v-app-bar-nav-icon
+      @click.stop="drawer = !drawer"
+    >
     </v-app-bar-nav-icon>
     <v-toolbar-title>DnD Webapp</v-toolbar-title>
     <v-spacer></v-spacer>
@@ -56,7 +79,16 @@
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component({})
-export default class App extends Vue { }
+export default class App extends Vue {
+  private drawer:boolean = false;
+  private navItems:any[] = [
+    // { title: 'Encounter Builder', icon: 'sword' },
+    { title: 'Characters', icon: 'campfire', route: 'characters' },
+    { title: 'Monsters', icon: 'pine-tree', route: 'monsters' },
+    { title: 'Spells', icon: 'auto-fix', route: 'spells' },
+    { title: 'Equipment', icon: 'storefront', route: 'equipment' }
+  ]
+ }
 </script>
 
 <style lang="scss">
