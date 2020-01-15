@@ -198,4 +198,14 @@ export default class Spell extends SpellDTO {
         }
         return result;
     }
+
+    get levelString(): string {
+        let result:string = "";
+        if (this.level == 0) {
+            result = "Cantrip"
+        } else {
+            result = `Level ${this.level}`
+        }
+        return result;
+    }
 }

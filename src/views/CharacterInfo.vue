@@ -7,7 +7,7 @@
             <!-- Header -->
             <v-list-item three-line class="text-left">
                 <v-list-item-content>
-                    <div class="overline mb-4">SPELL</div>
+                    <div class="overline mb-4">CHARATER</div>
                     <v-list-item-title class="headline mb-1">
                         {{ c.fullName }}
                         <v-spacer></v-spacer>
@@ -78,36 +78,48 @@
             </v-list-item>
             <v-list-item three-line class="text-left">
                 <v-list-item-content>
-                    <div class="overline mb-4">AVAILABLE SPELLS</div>
-                    <v-data-table
+                    <div class="overline mb-4">SEARCH
+                    <div class="overline mb-4">AVAILABLE SPELLS | SELECT TO MARK LEANRED</div>
+                        <v-text-field 
+                            v-model="search"
+                            dense
+                        >
+                        </v-text-field>
+                    </div>
+                    <!-- <v-data-table
                         :headers="spell_headers"
                         :items="c.spells"
                         :item-key="c.spells.id"
                         :search="search"
                         dense
+                        show-expand
+                        :expanded.sync="expanded"
+                        show-select
+                    > -->
+                    <v-data-table
+                        :headers="headers"
+                        :items="c.spells"
+                        :item-key="c.spells.id"
+                        :search="search"
+                        dense
+                        show-expand
                     >
-                        <template v-slot:item.name="{ item }">
-                            <v-expansion-panels 
-                                :flat="true"
-                            >
-                            <v-expansion-panel :flat="true">
-                                <v-expansion-panel-header>{{ item.name }}</v-expansion-panel-header>
-                                <v-expansion-panel-content>
-                                    <v-lazy
-                                        v-model="isActive"
-                                        :options="{ threshold: .5 }"
-                                        min-height="200"
-                                        transition="fade-transition"
-                                    >
-                                        <ChSpellInfo :id="item.id"></ChSpellInfo>
-                                    </v-lazy>
-                                </v-expansion-panel-content>
-                            </v-expansion-panel>
-                            </v-expansion-panels>
+                        <template v-slot:expanded-item="{ headers, item }">
+                            <td :colspan="headers.length" class="pa-0" elevation="0">
+                                <v-card flat>
+                                    <ChSpellInfo :id="item.id"></ChSpellInfo>
+                                </v-card>
+                            </td>
+                            <!-- <v-card :colspan="headers.length">
+                                <ChSpellInfo :id="item.id"></ChSpellInfo>
+                            </v-card> -->
                         </template>
                     </v-data-table>
                 </v-list-item-content>
             </v-list-item>
+            <!-- <v-list-item class="text-center">
+                <v-btn class="ma-2" outlined color="indigo">APPLY LEARNED</v-btn>
+            </v-list-item> -->
         </v-card>
     </div>
     <div v-else>
@@ -139,9 +151,12 @@ export default class CharacterInfo extends Vue {
     private c!: Character;
     private loading: boolean = false;
     private search: string = '';
-    private spell_headers: any[] = [
+    private expanded!:any[];
+    private selected!:any[];
+    private headers: any[] = [
         { text: 'Name', value: 'name' },
-        { text: 'Level', value: 'level' }
+        { text: 'Level', value: 'level' },
+        { test: '', value: 'data-table-expand' }
     ];
 
     async mounted():Promise<void> {

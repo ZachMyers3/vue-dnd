@@ -1,12 +1,12 @@
 <template>
     <div v-if="!loading">
-        <v-card flat>
-            <router-link :to="{ name: 'spellInfo', params: { id: s.id }}">
+        <v-card flat tile>
+            <!-- <router-link :to="{ name: 'spellInfo', params: { id: s.id }}">
                 <v-card-title>
                     {{ s.name }}
                 </v-card-title>
-            </router-link>
-            <v-card-subtitle>Level {{ s.level }} Spell</v-card-subtitle>
+            </router-link> -->
+            <v-card-subtitle>{{ s.levelString }}</v-card-subtitle>
             <v-card-text><span v-html="s.desc"></span></v-card-text>
         </v-card>
     </div>
