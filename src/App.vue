@@ -53,10 +53,10 @@ export default class App extends Vue {
   private drawer:boolean = false;
   private navItems:any[] = [
     // { title: 'Encounter Builder', icon: 'sword', link: 'encounter' },
-    { title: 'Characters', icon: 'campfire', link: 'characters' },
-    { title: 'Monsters', icon: 'pine-tree', link: 'monsters' },
-    { title: 'Spells', icon: 'auto-fix', link: 'spells' },
-    { title: 'Equipment', icon: 'storefront', link: 'equipment' }
+    { title: 'Characters', icon: 'campfire', link: '/characters' },
+    { title: 'Monsters', icon: 'pine-tree', link: '/monsters' },
+    { title: 'Spells', icon: 'auto-fix', link: '/spells' },
+    { title: 'Equipment', icon: 'storefront', link: '/equipment' }
   ]
  }
 </script>

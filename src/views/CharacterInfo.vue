@@ -78,8 +78,8 @@
             </v-list-item>
             <v-list-item three-line class="text-left">
                 <v-list-item-content>
-                    <div class="overline mb-4">SEARCH
                     <div class="overline mb-4">AVAILABLE SPELLS | SELECT TO MARK LEANRED</div>
+                    <div class="overline mb-4">SEARCH
                         <v-text-field 
                             v-model="search"
                             dense
@@ -105,10 +105,15 @@
                         show-expand
                     >
                         <template v-slot:expanded-item="{ headers, item }">
-                            <td :colspan="headers.length" class="pa-0" elevation="0">
-                                <v-card flat>
+                            <td :colspan="headers.length" class="pa-0">
+                                <v-expand-transition>
+                                <!-- TODO https://vuetifyjs.com/en/styles/transitions see expand transitions -->
+                                <v-card
+                                    flat
+                                >
                                     <ChSpellInfo :id="item.id"></ChSpellInfo>
                                 </v-card>
+                                </v-expand-transition>
                             </td>
                             <!-- <v-card :colspan="headers.length">
                                 <ChSpellInfo :id="item.id"></ChSpellInfo>
@@ -151,6 +156,7 @@ export default class CharacterInfo extends Vue {
     private c!: Character;
     private loading: boolean = false;
     private search: string = '';
+    private expand: boolean = false;
     private expanded!:any[];
     private selected!:any[];
     private headers: any[] = [
