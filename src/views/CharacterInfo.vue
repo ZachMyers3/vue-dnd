@@ -7,7 +7,7 @@
             <!-- Header -->
             <v-list-item three-line class="text-left">
                 <v-list-item-content>
-                    <div class="overline mb-4">CHARATER</div>
+                    <div class="overline mb-4">CHARACTER</div>
                     <v-list-item-title class="headline mb-1">
                         {{ c.fullName }}
                         <v-spacer></v-spacer>
@@ -78,7 +78,7 @@
             </v-list-item>
             <v-list-item three-line class="text-left">
                 <v-list-item-content>
-                    <div class="overline mb-4">AVAILABLE SPELLS | SELECT TO MARK LEANRED</div>
+                    <div class="overline mb-4">AVAILABLE SPELLS | SELECT TO MARK LEARNED</div>
                     <div class="overline mb-4">SEARCH
                         <v-text-field 
                             v-model="search"
