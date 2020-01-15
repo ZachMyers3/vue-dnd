@@ -86,16 +86,6 @@
                         >
                         </v-text-field>
                     </div>
-                    <!-- <v-data-table
-                        :headers="spell_headers"
-                        :items="c.spells"
-                        :item-key="c.spells.id"
-                        :search="search"
-                        dense
-                        show-expand
-                        :expanded.sync="expanded"
-                        show-select
-                    > -->
                     <v-data-table
                         :headers="headers"
                         :items="c.spells"
@@ -105,16 +95,12 @@
                         show-expand
                     >
                         <template v-slot:expanded-item="{ headers, item }">
+                            <!-- TODO https://vuetifyjs.com/en/styles/transitions see expand transitions -->
+                            <v-expand-transition>
                             <td :colspan="headers.length" class="pa-0">
-                                <v-expand-transition>
-                                <!-- TODO https://vuetifyjs.com/en/styles/transitions see expand transitions -->
-                                <v-card
-                                    flat
-                                >
-                                    <ChSpellInfo :id="item.id"></ChSpellInfo>
-                                </v-card>
-                                </v-expand-transition>
+                                <ChSpellInfo :id="item.id"></ChSpellInfo>
                             </td>
+                            </v-expand-transition>
                             <!-- <v-card :colspan="headers.length">
                                 <ChSpellInfo :id="item.id"></ChSpellInfo>
                             </v-card> -->

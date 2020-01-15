@@ -43,11 +43,13 @@
             </v-list-item>
         </v-card>
     </div>
-    <div v-else>
-        <v-progress-circular
-            indeterminate
-            size="64"
-        ></v-progress-circular>
+    <div v-else class="text-center">
+        <v-card flat tile>
+            <v-progress-circular
+                indeterminate
+                size="64"
+            ></v-progress-circular>
+        </v-card>
     </div>
 </template>
 
