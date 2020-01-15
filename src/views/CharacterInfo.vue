@@ -76,7 +76,7 @@
                     </v-simple-table>
                 </v-list-item-content>
             </v-list-item>
-            <v-list-item three-line class="text-left">
+            <v-list-item v-if="c.spells.length > 0" three-line class="text-left">
                 <v-list-item-content>
                     <div class="overline mb-4">AVAILABLE SPELLS | SELECT TO MARK LEARNED</div>
                     <div class="overline mb-4">SEARCH
