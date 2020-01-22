@@ -18,6 +18,7 @@
         :item-key="spells._id"
         :search="search"
         dense
+        show-expand
       >
         <!-- adds router link -->
         <template v-slot:item.name="{ item }">
@@ -26,6 +27,14 @@
               {{ item.name }}
             </router-link>
           </div>
+        </template>
+        <template v-slot:expanded-item="{ headers, item }">
+            <!-- TODO https://vuetifyjs.com/en/styles/transitions see expand transitions -->
+            <v-expand-transition>
+            <td :colspan="headers.length" class="pa-0">
+                <ChSpellInfo :id="item.id"></ChSpellInfo>
+            </td>
+            </v-expand-transition>
         </template>
         <!-- <template v-slot:item.classes="{ item }">
           <div class="classes">
@@ -54,8 +63,13 @@ import Component from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 import Spell from '@/models/Spell';
 import { SpellApi } from '@/api/SpellApi';
+import ChSpellInfo from '@/components/ChSpellInfo.vue';
 
-@Component({ })
+@Component({ 
+    components: {
+        ChSpellInfo
+    }
+})
 export default class Spells extends Vue {
     private loading: boolean = false;
     private search: string = '';
@@ -66,7 +80,8 @@ export default class Spells extends Vue {
         { text: 'Duration (s)', value: 'durationsByComma' },
         { text: 'Range (ft)', value: 'rangeString'},
         { text: 'Level', value: 'level' },
-        { text: 'Classes', value: 'classesByComma'}
+        { text: 'Classes', value: 'classesByComma'},
+        { text: '', value: 'data-table-expand' }
     ];
     // gather characters from API
     private spells: Spell[] = []
@@ -81,6 +96,7 @@ export default class Spells extends Vue {
     }
 }
 </script>
+
 
 <style lang="scss">
 div.name {

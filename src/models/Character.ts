@@ -8,6 +8,12 @@ interface ISkill {
     proficiency: boolean
 }
 
+export interface ISpell {
+    name: string,
+    id: number,
+    learned: boolean
+}
+
 export interface ICharacter {
     id?: string,
     firstName: string,
@@ -30,7 +36,8 @@ export interface ICharacter {
     size: string,
     background: string,
     class: IClass[],
-    skills: ISkill[]
+    skills: ISkill[],
+    spells: ISpell[]
 }
 
 export class CharacterDTO implements ICharacter {
@@ -61,6 +68,11 @@ export class CharacterDTO implements ICharacter {
     skills: ISkill[] = [{
         name: '',
         proficiency: false
+    }]
+    spells: ISpell[] = [{
+        name: '',
+        id: 0,
+        learned: false
     }]
 }
 

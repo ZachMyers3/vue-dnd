@@ -28,6 +28,11 @@ interface characterInterface {
   character: CharacterDTO
 }
 
+interface characterSpellInterface {
+  ok: boolean,
+  data: CharacterDTO
+}
+
 export abstract class CharacterApi {
   private static charactersAxios = axios.create();
 
@@ -39,5 +44,10 @@ export abstract class CharacterApi {
   static async getCharacter(id: string): Promise<Character> {
     let response = await this.charactersAxios.get<characterInterface>(`${API_URL}/character?_id=${id}`);
     return new Character(response.data.character);
+  }
+
+  static async toggleCharacter(id: string, spell_id: number): Promise<Boolean> {
+    let response = await this.charactersAxios.put<characterSpellInterface>(`${API_URL}/character/learn_spell?_id=${id}&spell_id=${spell_id}`)
+    return response.data.ok
   }
 }

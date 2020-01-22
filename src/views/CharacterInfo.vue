@@ -76,21 +76,21 @@
                     </v-simple-table>
                 </v-list-item-content>
             </v-list-item>
-            <v-list-item v-if="c.spells.length > 0" three-line class="text-left">
+            <v-list-item v-if="learnedSpells.length > 0" three-line class="text-left">
                 <v-list-item-content>
-                    <div class="overline mb-4">AVAILABLE SPELLS | SELECT TO MARK LEARNED</div>
+                    <div class="overline mb-4">LEARNED SPELLS</div>
                     <div class="overline mb-4">SEARCH
                         <v-text-field 
-                            v-model="search"
+                            v-model="searchLearned"
                             dense
                         >
                         </v-text-field>
                     </div>
                     <v-data-table
                         :headers="headers"
-                        :items="c.spells"
-                        :item-key="c.spells.id"
-                        :search="search"
+                        :items="learnedSpells"
+                        :item-key="learnedSpells.id"
+                        :search="searchLearned"
                         dense
                         show-expand
                     >
@@ -101,16 +101,45 @@
                                 <ChSpellInfo :id="item.id"></ChSpellInfo>
                             </td>
                             </v-expand-transition>
-                            <!-- <v-card :colspan="headers.length">
-                                <ChSpellInfo :id="item.id"></ChSpellInfo>
-                            </v-card> -->
                         </template>
                     </v-data-table>
                 </v-list-item-content>
             </v-list-item>
-            <!-- <v-list-item class="text-center">
-                <v-btn class="ma-2" outlined color="indigo">APPLY LEARNED</v-btn>
-            </v-list-item> -->
+            <v-list-item v-if="spellCount > 0" three-line class="text-left">
+                <v-list-item-content>
+                    <div class="overline mb-4">AVAILABLE SPELLS | SELECT TO MARK LEARNED</div>
+                    <div class="overline mb-4">SEARCH
+                        <v-text-field 
+                            v-model="search"
+                            dense
+                        >
+                        </v-text-field>
+                    </div>
+                    <v-data-table
+                        key="renderKey"
+                        v-model="selected"
+                        :headers="headers"
+                        :items="c.spells"
+                        :item-key="c.spells.id"
+                        :search="search"
+                        dense
+                        show-expand
+                        show-select
+                    >
+                        <template v-slot:expanded-item="{ headers, item }">
+                            <!-- TODO https://vuetifyjs.com/en/styles/transitions see expand transitions -->
+                            <v-expand-transition>
+                            <td :colspan="headers.length" class="pa-0">
+                                <ChSpellInfo :id="item.id"></ChSpellInfo>
+                            </td>
+                            </v-expand-transition>
+                        </template>
+                    </v-data-table>
+                </v-list-item-content>
+            </v-list-item>
+            <v-list-item class="text-center">
+                <v-btn v-on:click="markLearned()" class="ma-2" outlined color="indigo">MARK SELECTED AS LEARNED</v-btn>
+            </v-list-item>
         </v-card>
     </div>
     <div v-else>
@@ -128,7 +157,7 @@ import Vue from 'vue'
 import Component from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 import CharacterPage from '../components/CharacterPage.vue'
-import Character, { CharacterDTO } from '@/models/Character';
+import Character, { CharacterDTO, ISpell } from '@/models/Character';
 import { CharacterApi } from '@/api/CharacterApi';
 import ChSpellInfo from '@/components/ChSpellInfo.vue';
 
@@ -140,26 +169,54 @@ import ChSpellInfo from '@/components/ChSpellInfo.vue';
 export default class CharacterInfo extends Vue { 
     @Prop() private id!: string;
     private c!: Character;
+    private spellCount: number = 0;
+    private learnedSpells!: ISpell[];
     private loading: boolean = false;
     private search: string = '';
+    private searchLearned: string = '';
     private expand: boolean = false;
     private expanded!:any[];
     private selected!:any[];
     private headers: any[] = [
         { text: 'Name', value: 'name' },
         { text: 'Level', value: 'level' },
-        { test: '', value: 'data-table-expand' }
+        { text: '', value: 'data-table-expand' }
     ];
+    private renderKey: number = 0;
 
     async mounted():Promise<void> {
-      this.loading = !this.loading;
-      this.c = await CharacterApi.getCharacter(this.id);
-      this.loading = !this.loading;
+        this.loading = !this.loading;
+        this.c = await CharacterApi.getCharacter(this.id);
+        this.spellCount = this.c.spells.length;
+        this.generateLearnedSpells();
+        this.loading = !this.loading;
+    }
+
+    async markLearned():Promise<void> {
+        // loop through all selected objects, toggle learned
+        for (let spell of this.selected) {
+            let ok:Boolean = await CharacterApi.toggleCharacter(this.id, spell.id);  
+        }
+        this.generateLearnedSpells();
+    }
+
+    generateLearnedSpells() {
+        // initialize the list
+        this.learnedSpells = [];
+        // loop through all spells and gather learned
+        for (let spell of this.c.spells) {
+            if (spell.learned) {
+                this.learnedSpells.push(spell);
+            }
+        }
+        this.$forceUpdate();
     }
 
     data() {
       return {
-        c: Character
+        c: Character,
+        selected: [],
+        learnedSpells: []
       }
     }
 }
