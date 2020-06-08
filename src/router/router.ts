@@ -72,6 +72,13 @@ const routes = [
     props: true,
     component: () => import(/* webpackChunkName: "Map" */ "@/views/Map.vue"),
   },
+  {
+    name: "encounter",
+    path: `/encounter`,
+    props: true,
+    component: () =>
+      import(/* webpackChunkName: "Encounter" */ "@/views/EncounterFrame.vue"),
+  },
 ];
 
 export const router = new VueRouter({
