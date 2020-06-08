@@ -43,7 +43,8 @@ import { Component, Vue } from "vue-property-decorator";
 
 @Component({})
 export default class App extends Vue {
-  private drawer: boolean = false;
+  private drawer = false;
+  // eslint-disable-next-line
   private navItems: any[] = [
     // { title: 'Encounter Builder', icon: 'sword', link: 'encounter' },
     { title: "Characters", icon: "campfire", link: "/characters" },

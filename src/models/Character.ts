@@ -42,25 +42,25 @@ export interface ICharacter {
 
 export class CharacterDTO implements ICharacter {
     id?: string;
-    firstName: string = '';
-    lastName: string = '';
-    maxHP: number = 0;
-    currentHP: number = 0;
-    baseAC: number = 0;
-    currentAC: number = 0;
-    strength: number = 0;
-    dexterity: number = 0;
-    constitution: number = 0;
-    intelligence: number = 0;
-    wisdom: number = 0;
-    charisma: number = 0;
-    experiencePoints: number = 0;
-    alignment: string = '';
-    race: string = '';
-    gender: string = '';
-    diety: string = '';
-    size: string = '';
-    background: string = '';
+    firstName = '';
+    lastName = '';
+    maxHP = 0;
+    currentHP = 0;
+    baseAC = 0;
+    currentAC = 0;
+    strength = 0;
+    dexterity = 0;
+    constitution = 0;
+    intelligence = 0;
+    wisdom = 0;
+    charisma = 0;
+    experiencePoints = 0;
+    alignment = '';
+    race = '';
+    gender = '';
+    diety = '';
+    size = '';
+    background = '';
     class: IClass[] = [{        
         name: '',
         level:  0
@@ -89,7 +89,7 @@ export default class Character extends CharacterDTO {
                            265000, 305000, 355000, Number.MAX_SAFE_INTEGER];
 
     get fullName(): string {
-        let fullName:string = this.firstName + ' ' + this.lastName;
+        const fullName:string = this.firstName + ' ' + this.lastName;
         return fullName;
     }
 
@@ -98,17 +98,17 @@ export default class Character extends CharacterDTO {
     }
 
     get level(): number {
-        let totalLevel:number = 0;
-        for (let cclass of this.class) {
+        let totalLevel = 0;
+        for (const cclass of this.class) {
             totalLevel += cclass.level;
         }
         return totalLevel;
     }
 
     get classesByComma(): string {
-        let result:string = '';
-        let i:number = 0;
-        var length:number = this.class.length
+        let result = '';
+        let i = 0;
+        const length:number = this.class.length
         for (i = 0; i < length; i++) {
             result += this.class[i].name
             if ((i != length - 1)) {

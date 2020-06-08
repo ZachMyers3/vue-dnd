@@ -4,7 +4,7 @@ export interface IDice {
 
 // dice class, will implement rolling
 export default class Dice implements IDice {
-    last: number = 6;
+    last = 6;
 
     constructor(inLast: number) {
         this.last = inLast;

@@ -30,32 +30,32 @@ export interface IMonster {
 
 export class MonsterDTO implements IMonster {
     _id?: string = '';
-    alignment: string = '';
-    armor_class: number = 0;
-    challenge_rating: number = 0;
-    charisma: number = 0;
-    charisma_save: number = 0;
-    condition_immunities: string = '';
-    constitution: number = 0;
-    constitution_save: number = 0;
-    damage_immunities: string = '';
-    damage_resistances: string = '';
-    damage_vulnerabilities: string = '';
-    dexterity: number = 0;
-    dexterity_save: number = 0;
-    hit_dice: string = '';
-    hit_points: number = 0;
-    intelligence: number = 0;
-    languages: string = '';
-    name: string = '';
-    perception: number = 0;
-    senses: string = '';
-    size: string = '';
-    speed: string = '';
-    stealth: string = '';
-    subtype: string = '';
-    wisdom: number = 0;
-    wisdom_save: number = 0;
+    alignment = '';
+    armor_class = 0;
+    challenge_rating = 0;
+    charisma = 0;
+    charisma_save = 0;
+    condition_immunities = '';
+    constitution = 0;
+    constitution_save = 0;
+    damage_immunities = '';
+    damage_resistances = '';
+    damage_vulnerabilities = '';
+    dexterity = 0;
+    dexterity_save = 0;
+    hit_dice = '';
+    hit_points = 0;
+    intelligence = 0;
+    languages = '';
+    name = '';
+    perception = 0;
+    senses = '';
+    size = '';
+    speed = '';
+    stealth = '';
+    subtype = '';
+    wisdom = 0;
+    wisdom_save = 0;
 }
 
 export default class Monster extends MonsterDTO {

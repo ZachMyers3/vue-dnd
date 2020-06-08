@@ -12,14 +12,14 @@ export interface IEquipmentCategories {
 }
 
 export class EquipmentCategoriesDTO implements IEquipmentCategories {
-    id: string = '';
-    index: number = 0;
-    name: string = ''
+    id = '';
+    index = 0;
+    name = ''
     equipment: LinkageObject[] = [{
         name: '',
         url: ''
     }]
-    url: string = '';
+    url = '';
 }
 
 export default class EquipmentCategories extends EquipmentCategoriesDTO {
