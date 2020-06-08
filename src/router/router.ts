@@ -74,7 +74,15 @@ const routes = [
   },
   {
     name: "encounter",
-    path: `/encounter`,
+    path: `/encounter/`,
+    props: true,
+    component: () =>
+      import(/* webpackChunkName: "Encounter" */ "@/views/EncounterFrame.vue"),
+  },
+  {
+    name: "encounter",
+    path: `/encounter/:eid`,
+    alias: "/encounter",
     props: true,
     component: () =>
       import(/* webpackChunkName: "Encounter" */ "@/views/EncounterFrame.vue"),
