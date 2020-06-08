@@ -47,8 +47,8 @@ export interface IEquipment {
 }
 
 export class EquipmentDTO implements IEquipment {
-    _id: string = '';
-    catagory_range: string = '';
+    _id = '';
+    catagory_range = '';
     cost: Cost = {
         quantity: 0,
         unit: ''
@@ -61,9 +61,9 @@ export class EquipmentDTO implements IEquipment {
             url: 0
         }
     };
-    equipment_category: string = '';
-    index: number = 0;
-    name: string = '';
+    equipment_category = '';
+    index = 0;
+    name = '';
     properties: Property[] = [{
         name: '',
         url: ''
@@ -76,10 +76,10 @@ export class EquipmentDTO implements IEquipment {
         long: 0,
         normal: 0
     };
-    url: string = '';
-    weapon_category: string = '';
-    weapon_range: string = '';
-    weight: number = 0;
+    url = '';
+    weapon_category = '';
+    weapon_range = '';
+    weight = 0;
 }
 
 export default class Equipment extends EquipmentDTO {
@@ -89,13 +89,13 @@ export default class Equipment extends EquipmentDTO {
     }
 
     get costString(): string {
-        let result: string = '';
+        let result = '';
         result = this.cost.quantity.toString() + ' ' + this.cost.unit;
         return result;
     }
 
     get weightString(): string {
-        let result: string = '';
+        let result = '';
         if (this.weight == 0) {
             result = 'No Weight'
         } else if (this.weight == 1) {

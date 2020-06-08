@@ -65,7 +65,7 @@ export default class ChSpellInfo extends Vue {
     // will pass item over via prop
     @Prop() id!:string;
     private s!:Spell;
-    private loading:boolean = false;
+    private loading = false;
 
     async mounted():Promise<void> {
       this.loading = !this.loading;

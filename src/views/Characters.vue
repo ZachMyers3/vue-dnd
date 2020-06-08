@@ -1,5 +1,5 @@
 <template>
-  <div v-if=!loading>
+  <div v-if="!loading">
     <v-card>
       <v-card-title>
         Characters
@@ -22,7 +22,9 @@
         <!-- templatizes the fullname field, adds router link -->
         <template v-slot:item.fullName="{ item }">
           <div class="fullName">
-            <router-link :to="{ name: 'characterInfo', params: { id: item._id }}">
+            <router-link
+              :to="{ name: 'characterInfo', params: { id: item._id } }"
+            >
               {{ item.fullName }}
             </router-link>
           </div>
@@ -31,47 +33,44 @@
     </v-card>
   </div>
   <div v-else>
-        <v-overlay>
-            <v-progress-circular
-                indeterminate
-                size="64"
-            ></v-progress-circular>
-        </v-overlay>
-    </div>
+    <v-overlay>
+      <v-progress-circular indeterminate size="64"></v-progress-circular>
+    </v-overlay>
+  </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import Component from 'vue-class-component';
-import { Prop } from 'vue-property-decorator';
-import Character from '@/models/Character';
-import { CharacterApi } from '@/api/CharacterApi';
+import Vue from "vue";
+import Component from "vue-class-component";
+import Character from "@/models/Character";
+import { CharacterApi } from "@/api/CharacterApi";
 
-@Component({ })
+@Component({})
 export default class Characters extends Vue {
-    private loading: boolean = false;
-    private search: string = '';
-    private headers: any[] = [
-        { text: 'Name', value: 'fullName' },
-        { text: 'HP', value: 'maxHP' },
-        { text: 'STR', value: 'strength' },
-        { text: 'DEX', value: 'dexterity' },
-        { text: 'CON', value: 'constitution' },
-        { text: 'INT', value: 'intelligence' },
-        { text: 'WIS', value: 'wisdom' },
-        { text: 'CHA', value: 'charisma' }
-    ];
-    // gather characters from API
-    private characters: Character[] = []
-    async mounted():Promise<void> {
-        this.getAllCharacters();
-    }
+  private loading = false;
+  private search = "";
+  // eslint-disable-next-line
+  private headers: any[] = [
+    { text: "Name", value: "fullName" },
+    { text: "HP", value: "maxHP" },
+    { text: "STR", value: "strength" },
+    { text: "DEX", value: "dexterity" },
+    { text: "CON", value: "constitution" },
+    { text: "INT", value: "intelligence" },
+    { text: "WIS", value: "wisdom" },
+    { text: "CHA", value: "charisma" },
+  ];
+  // gather characters from API
+  private characters: Character[] = [];
+  async mounted(): Promise<void> {
+    this.getAllCharacters();
+  }
 
-    async getAllCharacters() {
-        this.loading = !this.loading;
-        this.characters = await CharacterApi.getAllCharacters();
-        this.loading = !this.loading;
-    }
+  async getAllCharacters(): Promise<void> {
+    this.loading = !this.loading;
+    this.characters = await CharacterApi.getAllCharacters();
+    this.loading = !this.loading;
+  }
 }
 </script>
 
@@ -84,11 +83,11 @@ div.fullName {
 }
 
 div.characterpage {
-    h2 {
-		text-decoration: underline;
-	}
-	p.meta {
-		font-style: italic;
-	}
+  h2 {
+    text-decoration: underline;
+  }
+  p.meta {
+    font-style: italic;
+  }
 }
 </style>
