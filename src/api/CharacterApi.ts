@@ -37,19 +37,17 @@ export abstract class CharacterApi {
   private static charactersAxios = axios.create();
 
   static async getAllCharacters(): Promise<Character[]> {
-    const response = await this.charactersAxios.get<RequestInterface>(
+    const response = await this.charactersAxios.get<Character[]>(
       `${API_URL}/characters`
     );
-    return response.data.characters.map(
-      (characterDTO) => new Character(characterDTO)
-    );
+    return response.data.map((characterDTO) => new Character(characterDTO));
   }
 
   static async getCharacter(id: string): Promise<Character> {
-    const response = await this.charactersAxios.get<characterInterface>(
-      `${API_URL}/character?_id=${id}`
+    const response = await this.charactersAxios.get<Character>(
+      `${API_URL}/characters/${id}/`
     );
-    return new Character(response.data.character);
+    return new Character(response.data);
   }
 
   static async toggleCharacter(id: string, spell_id: number): Promise<boolean> {

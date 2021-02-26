@@ -23,7 +23,7 @@
         <!-- adds router link -->
         <template v-slot:item.name="{ item }">
           <div class="name">
-            <router-link :to="{ name: 'spellInfo', params: { id: item.id } }">
+            <router-link :to="{ name: 'spellInfo', params: { id: item._id } }">
               {{ item.name }}
             </router-link>
           </div>
@@ -32,7 +32,7 @@
           <!-- TODO https://vuetifyjs.com/en/styles/transitions see expand transitions -->
           <v-expand-transition>
             <td :colspan="headers.length" class="pa-0">
-              <ChSpellInfo :id="item.id"></ChSpellInfo>
+              <ChSpellInfo :id="item._id"></ChSpellInfo>
             </td>
           </v-expand-transition>
         </template>
@@ -83,13 +83,13 @@ export default class Spells extends Vue {
   // gather characters from API
   private spells: Spell[] = [];
   async mounted(): Promise<void> {
-    this.spells = await this.getAllSpells();
+    await this.getAllSpells();
   }
 
-  async getAllSpells(): Promise<Spell[]> {
+  async getAllSpells() {
     this.loading = !this.loading;
+    this.spells = await SpellApi.getAllSpells();
     this.loading = !this.loading;
-    return await SpellApi.getAllSpells();
   }
 }
 </script>

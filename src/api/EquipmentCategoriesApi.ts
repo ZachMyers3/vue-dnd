@@ -18,9 +18,9 @@ export abstract class EquipmentCategoriesApi {
   private static a = axios.create();
 
   static async getAll(): Promise<EquipmentCategoriesDTO[]> {
-    const response = await this.a.get<RequestInterfaceMany>(
-      `${API_URL}/equipment-categories/all`
+    const response = await this.a.get<EquipmentCategoriesDTO[]>(
+      `${API_URL}/equipment_categories/`
     );
-    return response.data.data.map((eDTO) => new EquipmentCategories(eDTO));
+    return response.data.map((eDTO) => new EquipmentCategories(eDTO));
   }
 }

@@ -16,23 +16,19 @@ export abstract class EquipmentApi {
   private static a = axios.create();
 
   static async getAllEquipment(): Promise<Equipment[]> {
-    const response = await this.a.get<RequestInterfaceMany>(
-      `${API_URL}/equipment/all`
-    );
-    return response.data.data.map((eDTO) => new Equipment(eDTO));
+    const response = await this.a.get<Equipment[]>(`${API_URL}/equipment/`);
+    return response.data.map((eDTO) => new Equipment(eDTO));
   }
 
   static async getEquipmentById(id: string): Promise<Equipment> {
-    const response = await this.a.get<RequestInterfaceOne>(
-      `${API_URL}/equipment?_id=${id}`
-    );
-    return new Equipment(response.data.data);
+    const response = await this.a.get<Equipment>(`${API_URL}/equipment/${id}/`);
+    return new Equipment(response.data);
   }
 
   static async getEquipmentByCategory(category: string): Promise<Equipment[]> {
-    const response = await this.a.get<RequestInterfaceMany>(
+    const response = await this.a.get<Equipment[]>(
       `${API_URL}/equipment?equipment_category=${category}`
     );
-    return response.data.data.map((eDTO) => new Equipment(eDTO));
+    return response.data.map((eDTO) => new Equipment(eDTO));
   }
 }

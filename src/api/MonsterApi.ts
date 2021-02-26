@@ -14,47 +14,27 @@ interface PaginationInterface {
   data: MonsterDTO[];
 }
 
-interface allMonsterInterface {
-  ok: boolean;
-  data: MonsterDTO[];
-}
-
-interface RequestInterface {
-  count: number;
-  limit: number;
-  next: string;
-  ok: boolean;
-  previoius: string;
-  start: number;
-  monsters: MonsterDTO[];
-}
-
-interface MonsterInterface {
-  ok: boolean;
-  monster: MonsterDTO;
-}
-
 export abstract class MonsterApi {
   private static monsterAxios = axios.create();
 
   static async getMonsters(page = 1): Promise<Monster[]> {
     const response = await this.monsterAxios.get<PaginationInterface>(
-      `${API_URL}/monsters?page=${page}`
+      `${API_URL}/monsters/?page=${page}`
     );
     return response.data.data.map((monsterDTO) => new Monster(monsterDTO));
   }
 
   static async getAllMonsters(): Promise<Monster[]> {
-    const response = await this.monsterAxios.get<allMonsterInterface>(
-      `${API_URL}/monsters/all`
+    const response = await this.monsterAxios.get<MonsterDTO[]>(
+      `${API_URL}/monsters/`
     );
-    return response.data.data.map((MonsterDTO) => new Monster(MonsterDTO));
+    return response.data.map((MonsterDTO) => new Monster(MonsterDTO));
   }
 
   static async getMonster(id: string): Promise<Monster> {
-    const response = await this.monsterAxios.get<MonsterInterface>(
-      `${API_URL}/monster?_id=${id}`
+    const response = await this.monsterAxios.get<MonsterDTO>(
+      `${API_URL}/monsters/${id}/`
     );
-    return new Monster(response.data.monster);
+    return new Monster(response.data);
   }
 }
